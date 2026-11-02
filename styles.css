@@ -383,6 +383,10 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .closing-dua{ font:italic 400 14px/21px "Playfair Display",serif; color:var(--ink-soft); max-width:20rem; margin-bottom:.9rem !important; }
 .closing-meta{ font:700 10px/14px "Plus Jakarta Sans",sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--sec-dim); }
 
+/* The invitation below the curtain isn't rendered until it is opened, so its
+   photos and fonts don't compete with the opening film for bandwidth. */
+body:not(.is-open) .invite{ display:none; }
+
 /* ── Scroll reveal system (only when JS is running) ── */
 .js [data-reveal]{ opacity:0; transform:translateY(28px); transition:opacity 1s var(--ease), transform 1s var(--ease); transition-delay:var(--d,0s); will-change:opacity, transform; }
 .js [data-reveal="zoom"]{ transform:scale(.88); }

@@ -29,7 +29,7 @@ const CONFIG = {
   const SCROLL_DELAY = 5000;   // ms after tapping the seal before guests can scroll
 
   /* ───── Videos (silent, already sped up 1.5x in the files) ─────
-     Both films are downloaded completely before the seal can be opened,
+     The opening film is downloaded completely before the seal can be opened,
      so playback never waits on the network (no stutter). */
   [intro, loop].forEach((v) => { v.muted = true; });
   const loadBar = $('loadBar');
@@ -65,12 +65,11 @@ const CONFIG = {
     }).catch(() => { video.src = url; video.load(); });
   }
 
-  let pIntro = 0; let pLoop = 0;
-  const showProgress = () => loadBar.style.setProperty('--load', Math.round((pIntro * 0.7 + pLoop * 0.3) * 100) + '%');
-  Promise.all([
-    fetchVideo(intro, (p) => { pIntro = p; showProgress(); }),
-    fetchVideo(loop, (p) => { pLoop = p; showProgress(); })
-  ]).then(() => {
+  // Only the opening film gates the seal. The loop film downloads right after,
+  // while the opening is playing, so guests are not kept waiting for both.
+  const introReady = fetchVideo(intro, (p) => loadBar.style.setProperty('--load', Math.round(p * 100) + '%'));
+  const loopReady = introReady.then(() => fetchVideo(loop, () => {}));
+  introReady.then(() => {
     ready = true;
     hint.classList.remove('is-loading');
     hero.classList.remove('is-loading');
@@ -110,6 +109,7 @@ const CONFIG = {
     state = 'opening';
     hero.classList.add('is-opening');
     document.body.classList.add('is-open');
+    requestAnimationFrame(updateTimeline);
     unlockAudio();                          // inside the tap, so audio is allowed later
     try { const p = loop.play(); loop.pause(); if (p) p.catch(() => {}); } catch (e) { /* ignore */ }
     // Recitation begins together with the opening animation, not on the tap.
@@ -123,12 +123,15 @@ const CONFIG = {
     state = 'looping';
     try { loop.currentTime = 0; } catch (e) { /* ignore */ }
     // The intro stays frozen on its last frame until the loop paints, then they swap.
-    onFirstFrame(loop, () => {
-      hero.classList.add('is-playing', 'is-looping');
-      beginRecitationOnce();
-      unlockScroll();
+    // If the loop film is still downloading, the opening stays on its last frame.
+    loopReady.then(() => {
+      onFirstFrame(loop, () => {
+        hero.classList.add('is-playing', 'is-looping');
+        beginRecitationOnce();
+        unlockScroll();
+      });
+      loop.play().catch(() => {});
     });
-    loop.play().catch(() => {});
   }
 
   intro.addEventListener('ended', startLoop);
