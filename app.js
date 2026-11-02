@@ -73,6 +73,7 @@ const CONFIG = {
   ]).then(() => {
     ready = true;
     hint.classList.remove('is-loading');
+    hero.classList.remove('is-loading');
     hintText.textContent = 'Tap to open';
     if (tappedEarly) open();
   });
