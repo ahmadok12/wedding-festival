@@ -12,7 +12,7 @@
 <meta property="og:image" content="media/poster.jpg">
 <link rel="preload" href="media/poster.jpg" as="image">
 <link rel="preload" href="fonts/cinzel-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=20261102h">
+<link rel="stylesheet" href="styles.css?v=20261102i">
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true">
@@ -67,10 +67,13 @@
     </div>
 
 
-    <div class="scroll-cue" id="cue" aria-hidden="true">
-      <span>Scroll</span>
-      <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
+    <button class="scroll-cue" id="cue" type="button" aria-label="Scroll down to see the invitation">
+      <span class="cue-text">Scroll down<br><small>to see the invitation</small></span>
+      <span class="cue-arrows" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 8l7 7 7-7"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M5 8l7 7 7-7"/></svg>
+      </span>
+    </button>
   </section>
 
   <!-- ═════════════ Invitation landing page ═════════════ -->
@@ -222,6 +225,6 @@
     <div class="wash wash-bottom" aria-hidden="true"></div>
   </div>
 </main>
-<script src="app.js?v=20261102h" defer></script>
+<script src="app.js?v=20261102i" defer></script>
 </body>
 </html>

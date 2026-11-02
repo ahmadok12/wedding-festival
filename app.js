@@ -216,6 +216,10 @@ const CONFIG = {
     }
   });
 
+  // Tapping the scroll button glides down to the invitation.
+  $('cue').addEventListener('click', () => {
+    $('invite').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  });
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) hero.classList.remove('show-cue');
   }, { passive: true });
