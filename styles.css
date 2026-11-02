@@ -279,6 +279,9 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .dot-bronze{ background:var(--secondary); color:#fff; }
 .event-card{ padding:1rem 1.1rem 1.1rem; transition:box-shadow .3s ease, transform .3s ease; }
 .event-card:hover{ transform:translateY(-2px); box-shadow:var(--shadow-up); }
+.event-photo{ margin:-.25rem -.35rem .9rem; aspect-ratio:3/2; border-radius:.7rem; overflow:hidden; background:var(--s); }
+.event-photo img{ width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.12); transition:transform 2.2s var(--ease) .2s; }
+.event.is-in .event-photo img{ transform:none; }
 .event-top{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom:.45rem; }
 .day-chip{ font:700 10px/1 "Plus Jakarta Sans",sans-serif; letter-spacing:.12em; text-transform:uppercase; padding:.4rem .7rem; border-radius:999px; }
 .chip-gold{ background:var(--sec-container); color:#281800; }
