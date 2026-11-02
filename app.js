@@ -103,15 +103,16 @@ const CONFIG = {
     if (state !== 'closed') return;
     if (!ready) {
       // Remember the tap; start the moment the film is ready.
-      if (!tappedEarly) { tappedEarly = true; startRecitation(); hintText.textContent = 'Opening…'; }
+      if (!tappedEarly) { tappedEarly = true; unlockAudio(); hintText.textContent = 'Opening…'; }
       return;
     }
     state = 'opening';
     hero.classList.add('is-opening');
     document.body.classList.add('is-open');
-    if (!tappedEarly) startRecitation();    // inside the tap, so audio is allowed
+    unlockAudio();                          // inside the tap, so audio is allowed later
     try { const p = loop.play(); loop.pause(); if (p) p.catch(() => {}); } catch (e) { /* ignore */ }
-    onFirstFrame(intro, () => hero.classList.add('is-playing'));
+    // Recitation begins together with the opening animation, not on the tap.
+    onFirstFrame(intro, () => { hero.classList.add('is-playing'); beginRecitationOnce(); });
     intro.play().catch(() => startLoop());
     setTimeout(unlockScroll, SCROLL_DELAY);
   }
@@ -123,6 +124,7 @@ const CONFIG = {
     // The intro stays frozen on its last frame until the loop paints, then they swap.
     onFirstFrame(loop, () => {
       hero.classList.add('is-playing', 'is-looping');
+      beginRecitationOnce();
       unlockScroll();
     });
     loop.play().catch(() => {});
@@ -155,6 +157,27 @@ const CONFIG = {
     reciting = on;
     soundBtn.setAttribute('aria-pressed', String(on));
     soundBtn.setAttribute('aria-label', on ? 'Pause recitation' : 'Play recitation');
+  }
+  // Silently "unlock" the audio element during the guest's tap (needed on iPhone),
+  // without letting any sound play yet.
+  let audioUnlocked = false;
+  function unlockAudio() {
+    if (audioUnlocked) return;
+    audioUnlocked = true;
+    try {
+      ayah.muted = true;
+      const p = ayah.play();
+      ayah.pause();
+      if (p) p.catch(() => {});
+      ayah.currentTime = 0;
+    } catch (e) { /* ignore */ }
+    ayah.muted = false;
+  }
+  let recitationStarted = false;
+  function beginRecitationOnce() {
+    if (recitationStarted) return;
+    recitationStarted = true;
+    startRecitation();
   }
   function startRecitation() {
     setAyah(R.from);
