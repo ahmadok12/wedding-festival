@@ -26,10 +26,17 @@ const CONFIG = {
   const seal = document.getElementById('seal');
   const hint = document.getElementById('tapHint');
   const soundBtn = document.getElementById('sound');
-  const panel = document.getElementById('panel');
 
   let state = 'closed';   // closed → opening → looping
   let muted = false;
+  const SPEED = 1.5;          // playback speed for both videos
+  const SCROLL_DELAY = 5000;  // ms after tapping the seal before guests can scroll
+  [intro, loop].forEach((v) => {
+    v.defaultPlaybackRate = SPEED;
+    v.playbackRate = SPEED;
+    if ('preservesPitch' in v) v.preservesPitch = true;
+    v.addEventListener('play', () => { v.playbackRate = SPEED; });
+  });
 
   // Run cb once the video has actually painted a frame (avoids black flashes).
   function onFirstFrame(video, cb) {
@@ -67,7 +74,10 @@ const CONFIG = {
     syncPlayer();
   }
 
+  let unlocked = false;
   function unlockScroll() {
+    if (unlocked) return;
+    unlocked = true;
     root.classList.remove('locked');
     setTimeout(() => hero.classList.add('show-cue'), 700);
   }
@@ -86,6 +96,7 @@ const CONFIG = {
 
     onFirstFrame(intro, () => hero.classList.add('is-playing'));
     safePlay(intro);
+    setTimeout(unlockScroll, SCROLL_DELAY);
     syncPlayer();
   }
 
@@ -128,18 +139,6 @@ const CONFIG = {
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) hero.classList.remove('show-cue');
   }, { passive: true });
-
-  // Reveal the names when the palace wall comes into view.
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) { panel.classList.add('in-view'); io.disconnect(); }
-      });
-    }, { threshold: 0.3 });
-    io.observe(panel);
-  } else {
-    panel.classList.add('in-view');
-  }
 
   // Always start at the top (some browsers restore scroll on reload).
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';

@@ -11,7 +11,6 @@
 <meta property="og:description" content="Tap the seal to open your wedding invitation.">
 <meta property="og:image" content="media/poster.jpg">
 <link rel="preload" href="media/poster.jpg" as="image">
-<link rel="preload" href="fonts/pinyon-script-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/cinzel-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -72,98 +71,6 @@
       <span>Scroll</span>
       <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
-  </section>
-
-  <!-- Royal palace wall that rises over the scene -->
-  <section class="palace" id="palace">
-    <div class="parapet" aria-hidden="true"></div>
-    <div class="cornice" aria-hidden="true"></div>
-    <div class="dentils" aria-hidden="true"></div>
-    <div class="frieze" aria-hidden="true"></div>
-
-    <div class="wall">
-      <div class="arcade" aria-hidden="true"></div>
-      <div class="lamp-glow" aria-hidden="true"></div>
-
-      <div class="panel" id="panel">
-        <svg class="arch" viewBox="0 0 600 860" aria-hidden="true">
-          <defs>
-            <linearGradient id="slab" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#fffaf0"/><stop offset=".5" stop-color="#f6ecd6"/><stop offset="1" stop-color="#e9d8b4"/>
-            </linearGradient>
-            <radialGradient id="recess" cx=".5" cy=".42" r=".75">
-              <stop offset="0" stop-color="#fff6e2"/><stop offset=".55" stop-color="#f1e1bf"/><stop offset="1" stop-color="#d7bd8a"/>
-            </radialGradient>
-            <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#e8cd85"/><stop offset=".45" stop-color="#b8862f"/><stop offset=".6" stop-color="#8f6420"/><stop offset="1" stop-color="#d9b465"/>
-            </linearGradient>
-            <radialGradient id="flame" cx=".5" cy=".5" r=".5">
-              <stop offset="0" stop-color="#fff3c4"/><stop offset=".4" stop-color="#ffc864" stop-opacity=".8"/><stop offset="1" stop-color="#ff9a2e" stop-opacity="0"/>
-            </radialGradient>
-            <g id="rosette">
-              <g fill="url(#gold)">
-                <ellipse rx="6" ry="17" cy="-15"/><ellipse rx="6" ry="17" cy="-15" transform="rotate(45)"/>
-                <ellipse rx="6" ry="17" cy="-15" transform="rotate(90)"/><ellipse rx="6" ry="17" cy="-15" transform="rotate(135)"/>
-                <ellipse rx="6" ry="17" cy="-15" transform="rotate(180)"/><ellipse rx="6" ry="17" cy="-15" transform="rotate(225)"/>
-                <ellipse rx="6" ry="17" cy="-15" transform="rotate(270)"/><ellipse rx="6" ry="17" cy="-15" transform="rotate(315)"/>
-              </g>
-              <circle r="9" fill="#8e2a2a"/><circle r="3.5" fill="#f3d48a"/>
-            </g>
-          </defs>
-
-          <!-- carved slab (pishtaq) -->
-          <rect x="18" y="18" width="564" height="824" rx="4" fill="url(#slab)"/>
-          <g class="draw" fill="none" stroke="url(#gold)">
-            <rect x="18" y="18" width="564" height="824" rx="4" stroke-width="3" pathLength="1"/>
-            <rect x="38" y="38" width="524" height="784" stroke-width="1.4" pathLength="1"/>
-          </g>
-
-          <!-- spandrel ornaments -->
-          <use href="#rosette" x="96" y="104"/>
-          <use href="#rosette" x="504" y="104"/>
-          <g class="draw" fill="none" stroke="url(#gold)" stroke-width="1.6" stroke-linecap="round">
-            <path pathLength="1" d="M120 104 C160 96 190 120 214 144 M96 128 C88 168 100 200 112 228"/>
-            <path pathLength="1" d="M480 104 C440 96 410 120 386 144 M504 128 C512 168 500 200 488 228"/>
-          </g>
-
-          <!-- finial above the apex -->
-          <g fill="url(#gold)">
-            <path d="M300 44 C306 54 310 60 310 66 A10 10 0 0 1 290 66 C290 60 294 54 300 44 Z"/>
-            <rect x="286" y="76" width="28" height="4" rx="2"/>
-          </g>
-
-          <!-- cusped (multifoil) Mughal arch -->
-          <path d="M95.0 790.0 L95.0 350.0 A35.8 35.8 0 0 1 101.7 292.6 A35.8 35.8 0 0 1 121.4 238.3 A35.8 35.8 0 0 1 153.0 189.9 A35.8 35.8 0 0 1 194.8 150.1 A35.8 35.8 0 0 1 244.7 121.0 A35.8 35.8 0 0 1 300.0 104.1 A35.8 35.8 0 0 1 355.3 121.0 A35.8 35.8 0 0 1 405.2 150.1 A35.8 35.8 0 0 1 447.0 189.9 A35.8 35.8 0 0 1 478.6 238.3 A35.8 35.8 0 0 1 498.3 292.6 A35.8 35.8 0 0 1 505.0 350.0 L505.0 790.0 Z" fill="#e2cc9e" stroke="#e2cc9e" stroke-width="18" stroke-linejoin="round"/>
-          <path d="M113.0 772.0 L113.0 352.0 A33.1 33.1 0 0 1 119.1 298.9 A33.1 33.1 0 0 1 136.9 248.5 A33.1 33.1 0 0 1 165.6 203.5 A33.1 33.1 0 0 1 203.7 166.0 A33.1 33.1 0 0 1 249.3 138.1 A33.1 33.1 0 0 1 300.0 121.1 A33.1 33.1 0 0 1 350.7 138.1 A33.1 33.1 0 0 1 396.3 166.0 A33.1 33.1 0 0 1 434.4 203.5 A33.1 33.1 0 0 1 463.1 248.5 A33.1 33.1 0 0 1 480.9 298.9 A33.1 33.1 0 0 1 487.0 352.0 L487.0 772.0 Z" fill="url(#recess)"/>
-          <g class="draw" fill="none" stroke="url(#gold)" stroke-linejoin="round">
-            <path pathLength="1" stroke-width="3" d="M95.0 790.0 L95.0 350.0 A35.8 35.8 0 0 1 101.7 292.6 A35.8 35.8 0 0 1 121.4 238.3 A35.8 35.8 0 0 1 153.0 189.9 A35.8 35.8 0 0 1 194.8 150.1 A35.8 35.8 0 0 1 244.7 121.0 A35.8 35.8 0 0 1 300.0 104.1 A35.8 35.8 0 0 1 355.3 121.0 A35.8 35.8 0 0 1 405.2 150.1 A35.8 35.8 0 0 1 447.0 189.9 A35.8 35.8 0 0 1 478.6 238.3 A35.8 35.8 0 0 1 498.3 292.6 A35.8 35.8 0 0 1 505.0 350.0 L505.0 790.0"/>
-            <path pathLength="1" stroke-width="1.4" d="M113.0 772.0 L113.0 352.0 A33.1 33.1 0 0 1 119.1 298.9 A33.1 33.1 0 0 1 136.9 248.5 A33.1 33.1 0 0 1 165.6 203.5 A33.1 33.1 0 0 1 203.7 166.0 A33.1 33.1 0 0 1 249.3 138.1 A33.1 33.1 0 0 1 300.0 121.1 A33.1 33.1 0 0 1 350.7 138.1 A33.1 33.1 0 0 1 396.3 166.0 A33.1 33.1 0 0 1 434.4 203.5 A33.1 33.1 0 0 1 463.1 248.5 A33.1 33.1 0 0 1 480.9 298.9 A33.1 33.1 0 0 1 487.0 352.0 L487.0 772.0"/>
-          </g>
-
-          <!-- hanging lantern -->
-          <g class="lantern">
-            <line x1="300" y1="122" x2="300" y2="176" stroke="url(#gold)" stroke-width="1.4"/>
-            <circle class="flame" cx="300" cy="200" r="46" fill="url(#flame)"/>
-            <path d="M286 180 H314 L320 192 L312 214 H288 L280 192 Z" fill="none" stroke="url(#gold)" stroke-width="2"/>
-            <path d="M300 176 L286 180 M300 176 L314 180 M300 214 V226" stroke="url(#gold)" stroke-width="1.6"/>
-            <circle cx="300" cy="229" r="3" fill="url(#gold)"/>
-          </g>
-
-          <!-- threshold step -->
-          <rect x="80" y="790" width="440" height="14" fill="#d8c193"/>
-          <rect x="80" y="790" width="440" height="14" fill="none" stroke="url(#gold)" stroke-width="1.2"/>
-        </svg>
-
-        <h1 class="names">
-          <span class="name">Waheed</span>
-          <span class="weds">Weds</span>
-          <span class="name">Aisha</span>
-        </h1>
-      </div>
-    </div>
-
-    <div class="frieze" aria-hidden="true"></div>
-    <div class="plinth" aria-hidden="true"></div>
   </section>
 
   <!-- ═════════════ Invitation landing page ═════════════ -->
