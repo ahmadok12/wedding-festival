@@ -342,8 +342,8 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 
 /* ── Venue ── */
 .venue-card{ padding:.75rem; overflow:hidden; }
-.venue-img{ position:relative; aspect-ratio:4/3; border-radius:120px 120px .6rem .6rem; overflow:hidden; background:#e7d6b3; }
-.venue-img img{ width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.18) rotate(-2deg); transition:transform 2.6s var(--ease); }
+.venue-img{ position:relative; aspect-ratio:16/11; border-radius:120px 120px .6rem .6rem; overflow:hidden; background:#e7d6b3; }
+.venue-img img{ width:100%; height:100%; object-fit:cover; object-position:50% 45%; display:block; transform:scale(1.18) rotate(-2deg); transition:transform 2.6s var(--ease); }
 .is-in .venue-img img{ transform:none; }
 .venue-badge{ position:absolute; left:50%; bottom:.8rem; transform:translateX(-50%); white-space:nowrap; padding:.45rem .85rem; border-radius:999px; background:rgba(21,69,57,.88); color:#fff; font:700 10px/1 "Plus Jakarta Sans",sans-serif; letter-spacing:.16em; text-transform:uppercase; box-shadow:inset 0 0 0 1px rgba(197,168,128,.6); }
 .venue-body{ text-align:center; padding:1.1rem .5rem .5rem; }
