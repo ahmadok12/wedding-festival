@@ -4,7 +4,7 @@
 const CONFIG = {
   // Used by "Add Nikah to Calendar". Times are Pakistan time (PKT, UTC+5).
   events: [
-    { title: 'Nikah Ceremony — Waheed & Jaweria', start: '2026-11-12T13:00', hours: 3, location: 'Bano Market, Bhowana, Punjab, Pakistan' }
+    { title: 'Nikah Ceremony — Waheed & Jaweria', start: '2026-11-12T13:00', hours: 3, location: 'Pakistan Marriage Hall, Jhang Road, Bhowana' }
   ],
   // Quran recitation (Mishary Alafasy): Surah An-Naba from ayah 8 to the end.
   recitation: { surah: 78, from: 8, to: 40, folder: 'media/quran/' }
