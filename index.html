@@ -58,12 +58,12 @@
     <div class="backdrop backdrop-night" aria-hidden="true"></div>
 
     <div class="stage" id="stage">
-      <video id="loop" class="layer" src="media/loop.mp4" muted playsinline loop preload="auto" aria-hidden="true"></video>
-      <video id="intro" class="layer" src="media/intro.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
+      <video id="loop" class="layer" data-src="media/loop.mp4" muted playsinline loop preload="auto" aria-hidden="true"></video>
+      <video id="intro" class="layer" data-src="media/intro.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
       <img id="poster" class="layer" src="media/poster.jpg" alt="An ivory curtain tied with a golden wax seal, framed by white roses">
 
       <button class="seal" id="seal" type="button" aria-label="Tap the seal to open the invitation"></button>
-      <p class="tap-hint" id="tapHint">Tap to open</p>
+      <p class="tap-hint is-loading" id="tapHint"><span class="hint-text">Loading…</span><span class="hint-bar" aria-hidden="true"><i id="loadBar"></i></span></p>
     </div>
 
 
@@ -113,10 +113,6 @@
           <div class="verse">
             <p class="verse-text">“And We created you in pairs”</p>
             <p class="verse-ref">Surah An-Naba • 78:8</p>
-          </div>
-          <div class="portrait-foot">
-            <span class="portrait-loc"><svg class="ic"><use href="#i-location_on"/></svg>Haveli &amp; Mughal Courtyards</span>
-            <span class="glass-chip">Nuptials</span>
           </div>
         </div>
 

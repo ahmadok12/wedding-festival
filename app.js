@@ -26,15 +26,55 @@ const CONFIG = {
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let state = 'closed';        // closed → opening → looping
-  const SPEED = 1.5;           // playback speed for both videos
   const SCROLL_DELAY = 5000;   // ms after tapping the seal before guests can scroll
 
-  /* ───── Videos (silent) ───── */
-  [intro, loop].forEach((v) => {
-    v.muted = true;
-    v.defaultPlaybackRate = SPEED;
-    v.playbackRate = SPEED;
-    v.addEventListener('play', () => { v.playbackRate = SPEED; });
+  /* ───── Videos (silent, already sped up 1.5x in the files) ─────
+     Both films are downloaded completely before the seal can be opened,
+     so playback never waits on the network (no stutter). */
+  [intro, loop].forEach((v) => { v.muted = true; });
+  const loadBar = $('loadBar');
+  const hintText = hint.querySelector('.hint-text');
+  let ready = false;
+  let tappedEarly = false;
+
+  function fetchVideo(video, onProgress) {
+    const url = video.dataset.src;
+    if (!window.fetch || !window.ReadableStream || !window.URL || !URL.createObjectURL) {
+      video.src = url; video.load(); return Promise.resolve();
+    }
+    return fetch(url).then((res) => {
+      if (!res.ok || !res.body) throw new Error('fetch failed');
+      const total = +res.headers.get('Content-Length') || 0;
+      const reader = res.body.getReader();
+      const chunks = []; let got = 0;
+      const pump = () => reader.read().then(({ done, value }) => {
+        if (done) return;
+        chunks.push(value); got += value.length;
+        if (total) onProgress(got / total);
+        return pump();
+      });
+      return pump().then(() => {
+        video.src = URL.createObjectURL(new Blob(chunks, { type: 'video/mp4' }));
+        video.load();
+        return new Promise((resolve) => {
+          if (video.readyState >= 3) return resolve();
+          video.addEventListener('canplaythrough', resolve, { once: true });
+          video.addEventListener('loadeddata', () => setTimeout(resolve, 200), { once: true });
+        });
+      });
+    }).catch(() => { video.src = url; video.load(); });
+  }
+
+  let pIntro = 0; let pLoop = 0;
+  const showProgress = () => loadBar.style.setProperty('--load', Math.round((pIntro * 0.7 + pLoop * 0.3) * 100) + '%');
+  Promise.all([
+    fetchVideo(intro, (p) => { pIntro = p; showProgress(); }),
+    fetchVideo(loop, (p) => { pLoop = p; showProgress(); })
+  ]).then(() => {
+    ready = true;
+    hint.classList.remove('is-loading');
+    hintText.textContent = 'Tap to open';
+    if (tappedEarly) open();
   });
 
   function onFirstFrame(video, cb) {
@@ -61,10 +101,15 @@ const CONFIG = {
 
   function open() {
     if (state !== 'closed') return;
+    if (!ready) {
+      // Remember the tap; start the moment the film is ready.
+      if (!tappedEarly) { tappedEarly = true; startRecitation(); hintText.textContent = 'Opening…'; }
+      return;
+    }
     state = 'opening';
     hero.classList.add('is-opening');
     document.body.classList.add('is-open');
-    startRecitation();                      // inside the tap, so audio is allowed
+    if (!tappedEarly) startRecitation();    // inside the tap, so audio is allowed
     try { const p = loop.play(); loop.pause(); if (p) p.catch(() => {}); } catch (e) { /* ignore */ }
     onFirstFrame(intro, () => hero.classList.add('is-playing'));
     intro.play().catch(() => startLoop());
