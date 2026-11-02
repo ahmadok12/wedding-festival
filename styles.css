@@ -123,7 +123,21 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .tap-hint .hint-bar{ display:block; height:2px; margin:.55em auto -.2em; width:0; background:rgba(184,146,79,.25); border-radius:2px; overflow:hidden; transition:width .3s ease; }
 .tap-hint.is-loading .hint-bar{ width:100%; }
 .tap-hint .hint-bar i{ display:block; height:100%; width:var(--load,0%); background:var(--gold); transition:width .25s ease; }
-.tap-hint.is-loading{ animation:none; opacity:.9; }
+/* Loading state: plain serif line beneath the seal (no pill) */
+.tap-hint.is-loading{
+  padding:0; border:0; border-radius:0;
+  background:none; box-shadow:none;
+  -webkit-backdrop-filter:none; backdrop-filter:none;
+  font:italic 400 4.4cqw/1.3 "Playfair Display",Georgia,serif;
+  letter-spacing:.06em; text-indent:.06em; text-transform:none;
+  color:#6f5019;
+  text-shadow:0 0 2px rgba(255,251,240,1), 0 0 8px rgba(255,250,238,.95), 0 0 20px rgba(255,248,232,.9);
+  animation:hint-in .9s ease-out both, hint-pulse 2.8s ease-in-out .9s infinite;
+}
+.tap-hint.is-loading .hint-bar{ height:1px; margin:.7em auto 0; width:72%; background:rgba(138,106,47,.3); border-radius:0; box-shadow:0 0 6px rgba(255,250,238,.9); }
+.tap-hint.is-loading .hint-bar i{ background:linear-gradient(90deg, rgba(184,146,79,.6), var(--gold-deep)); }
+@keyframes hint-in{ from{ opacity:0; } to{ opacity:1; } }
+@keyframes hint-pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.72; } }
 /* lighten the GPU load once the film is playing */
 .hero.is-playing .backdrop-day{ opacity:0; }
 .hero.is-looping .backdrop-day{ display:none; }
@@ -165,7 +179,8 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 @keyframes nudge{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(6px); } }
 
 @media (prefers-reduced-motion:reduce){
-  .seal::before,.seal::after,.tap-hint,.scroll-cue svg{ animation:none; }
+  .seal::before,.seal::after,.tap-hint,.tap-hint.is-loading,.scroll-cue svg{ animation:none; }
+  .tap-hint.is-loading{ opacity:1; }
 }
 
 /* ═════════════════════════════════════════════
