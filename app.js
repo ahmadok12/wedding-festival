@@ -6,8 +6,9 @@ const CONFIG = {
   events: [
     { title: 'Nikah Ceremony — Waheed & Jaweria', start: '2026-11-12T13:00', hours: 3, location: 'Pakistan Marriage Hall, Jhang Road, Bhowana' }
   ],
-  // Quran recitation (Mishary Alafasy): Surah An-Naba from ayah 8 to the end.
-  recitation: { surah: 78, from: 8, to: 40, folder: 'media/quran/' }
+  // Quran recitation (Qari Abdul Rahman Mossad): Surah An-Naba from ayah 8 to the end,
+  // as one continuous recording.
+  recitation: { file: 'media/quran/naba-mossad-78-8.mp3' }
 };
 
 (() => {
@@ -178,19 +179,8 @@ const CONFIG = {
   seal.addEventListener('click', open);
   hint.addEventListener('click', open);
 
-  /* ───── Quran recitation: ayah 8, then on through the surah ───── */
-  const R = CONFIG.recitation;
-  let current = R.from;
+  /* ───── Quran recitation: An-Naba from ayah 8 through to the end ───── */
   let reciting = false;
-  const file = (n) => R.folder + String(R.surah).padStart(3, '0') + String(n).padStart(3, '0') + '.mp3';
-  const preloader = new Audio();
-  preloader.preload = 'auto';
-
-  function setAyah(n) {
-    current = n;
-    ayah.src = file(n);
-    if (n < R.to) { preloader.src = file(n + 1); preloader.load(); }
-  }
   function playCurrent() {
     const p = ayah.play();
     if (p) p.catch(() => setReciting(false));
@@ -222,18 +212,13 @@ const CONFIG = {
     startRecitation();
   }
   function startRecitation() {
-    setAyah(R.from);
+    try { ayah.currentTime = 0; } catch (e) { /* ignore */ }
     setReciting(true);
     playCurrent();
   }
   ayah.addEventListener('ended', () => {
-    if (current < R.to) {
-      setAyah(current + 1);
-      if (reciting) playCurrent();
-    } else {
-      setReciting(false);
-      setAyah(R.from);                       // ready to start again
-    }
+    setReciting(false);                      // surah complete; the button replays it
+    try { ayah.currentTime = 0; } catch (e) { /* ignore */ }
   });
   soundBtn.addEventListener('click', () => {
     if (reciting) { ayah.pause(); setReciting(false); }
