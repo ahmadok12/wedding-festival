@@ -289,8 +289,8 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .date-ribbon .ic{ color:var(--secondary); font-size:15px; }
 
 /* ── Portrait + player ── */
-.portrait-card{ padding:.75rem; border-radius:1rem; }
-.portrait{ position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:120px 120px .6rem .6rem; background:var(--s); }
+.portrait-card{ padding:.75rem; border-radius:1rem; width:min(100%, max(300px, calc((100svh - 110px) * .75 + 1.5rem))); margin:0 auto; }
+.portrait{ position:relative; aspect-ratio:3/4; overflow:hidden; border-radius:120px 120px .6rem .6rem; background:var(--s); }
 .portrait img{ width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.12); transition:transform 2.4s var(--ease); }
 .is-in .portrait img{ transform:scale(1); }
 .portrait-scrim{ position:absolute; inset:0; background:linear-gradient(to top, rgba(21,69,57,.82), transparent 45%, rgba(0,0,0,.25)); }
@@ -354,7 +354,7 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .btn-primary:active{ transform:scale(.98); }
 
 /* ── Venue ── */
-.venue-card{ padding:.75rem; overflow:hidden; }
+.venue-card{ padding:.75rem; overflow:hidden; width:min(100%, max(300px, calc(100svh - 300px))); margin:0 auto; }
 .venue-img{ position:relative; aspect-ratio:1/1; border-radius:120px 120px .6rem .6rem; overflow:hidden; background:#e7d6b3; }
 .venue-img img{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block; transform:scale(1.15); transition:transform 2.6s var(--ease); }
 .is-in .venue-img img{ transform:none; }
