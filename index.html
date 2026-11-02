@@ -9,10 +9,10 @@
 <meta name="description" content="You are warmly invited to celebrate the wedding of Waheed and Jaweria.">
 <meta property="og:title" content="Waheed Weds Jaweria">
 <meta property="og:description" content="Tap the seal to open your wedding invitation.">
-<meta property="og:image" content="media/poster.jpg">
-<link rel="preload" href="media/poster.jpg" as="image">
+<meta property="og:image" content="media/poster-540.jpg">
+<link rel="preload" href="media/poster-540.jpg" as="image">
 <link rel="preload" href="fonts/cinzel-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=20261102i">
+<link rel="stylesheet" href="styles.css?v=20261102j">
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true">
@@ -59,8 +59,9 @@
 
     <div class="stage" id="stage">
       <video id="loop" class="layer" data-src="media/loop.mp4" muted playsinline loop preload="auto" aria-hidden="true"></video>
-      <video id="intro" class="layer" data-src="media/intro.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
-      <img id="poster" class="layer" src="media/poster.jpg" alt="An ivory curtain tied with a golden wax seal, framed by white roses">
+      <video id="intro2" class="layer" data-src="media/intro-2.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
+      <video id="intro" class="layer" data-src="media/intro-1.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
+      <img id="poster" class="layer" src="media/poster-540.jpg" alt="An ivory curtain tied with a golden wax seal, framed by white roses">
 
       <button class="seal" id="seal" type="button" aria-label="Tap the seal to open the invitation"></button>
       <p class="tap-hint is-loading" id="tapHint"><span class="hint-text">The celebration awaits…</span><span class="hint-bar" aria-hidden="true"><i id="loadBar"></i></span></p>
@@ -81,7 +82,7 @@
     <div class="wash wash-top" aria-hidden="true"></div>
 
     <!-- Monogram & welcome -->
-    <audio id="ayah" src="media/quran/078008.mp3" preload="auto"></audio>
+    <audio id="ayah" src="media/quran/078008.mp3" preload="none"></audio>
     <section class="welcome sec" id="welcome" aria-label="Welcome">
       <p class="bismillah" lang="ar" dir="rtl" data-reveal>بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
       <p class="eyebrow" data-reveal>In the name of Allah, the Most Beneficent, the Most Merciful</p>
@@ -225,6 +226,6 @@
     <div class="wash wash-bottom" aria-hidden="true"></div>
   </div>
 </main>
-<script src="app.js?v=20261102i" defer></script>
+<script src="app.js?v=20261102j" defer></script>
 </body>
 </html>

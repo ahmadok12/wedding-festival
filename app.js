@@ -17,7 +17,8 @@ const CONFIG = {
 
   const $ = (id) => document.getElementById(id);
   const hero = $('hero');
-  const intro = $('intro');
+  const intro = $('intro');      // opening, part 1: the curtain parts
+  const intro2 = $('intro2');    // opening, part 2: the camera moves in
   const loop = $('loop');
   const seal = $('seal');
   const hint = $('tapHint');
@@ -31,7 +32,7 @@ const CONFIG = {
   /* ───── Videos (silent, already sped up 1.5x in the files) ─────
      The opening film is downloaded completely before the seal can be opened,
      so playback never waits on the network (no stutter). */
-  [intro, loop].forEach((v) => { v.muted = true; });
+  [intro, intro2, loop].forEach((v) => { v.muted = true; });
   const loadBar = $('loadBar');
   const hintText = hint.querySelector('.hint-text');
   let ready = false;
@@ -50,7 +51,7 @@ const CONFIG = {
       const pump = () => reader.read().then(({ done, value }) => {
         if (done) return;
         chunks.push(value); got += value.length;
-        if (total) onProgress(got / total);
+        onProgress(total ? got / total : 0, got, total);
         return pump();
       });
       return pump().then(() => {
@@ -65,11 +66,27 @@ const CONFIG = {
     }).catch(() => { video.src = url; video.load(); });
   }
 
-  // Only the opening film gates the seal. The loop film downloads right after,
-  // while the opening is playing, so guests are not kept waiting for both.
-  const introReady = fetchVideo(intro, (p) => loadBar.style.setProperty('--load', Math.round(p * 100) + '%'));
-  const loopReady = introReady.then(() => fetchVideo(loop, () => {}));
+  // Only the short first part of the opening (~280 KB) gates the seal.
+  // Part 2 and the loop download one after another while it plays.
+  // On slow connections we also wait until part 2 is sure to arrive before
+  // part 1 finishes playing (measured from this guest's real download speed).
+  const PART1_SECONDS = 3;
+  const t0 = performance.now();
+  let rate = 0;                 // bytes per second, measured on part 1
+  let part2Safe;
+  const part2SafePromise = new Promise((r) => { part2Safe = r; });
+  const introReady = fetchVideo(intro, (p, got) => {
+    loadBar.style.setProperty('--load', Math.round(p * 100) + '%');
+    rate = got / Math.max(0.05, (performance.now() - t0) / 1000);
+  });
+  const part2Ready = introReady.then(() => fetchVideo(intro2, (p, got, total) => {
+    if (!total || !rate || (total - got) / rate <= PART1_SECONDS * 0.75) part2Safe();
+  })).then(() => part2Safe());
+  const loopReady = part2Ready.then(() => fetchVideo(loop, () => {}));
   introReady.then(() => {
+    if (!rate) return true;                         // unknown speed: don't hold back
+    return Promise.race([part2SafePromise, new Promise((r) => setTimeout(r, 8000))]);
+  }).then(() => {
     ready = true;
     hint.classList.remove('is-loading');
     hero.classList.remove('is-loading');
@@ -92,9 +109,18 @@ const CONFIG = {
   }
 
   let unlocked = false;
+  let inviteShown = false;
+  function showInvite() {
+    if (inviteShown) return;
+    inviteShown = true;
+    document.body.classList.add('is-open');
+    requestAnimationFrame(updateTimeline);
+  }
+
   function unlockScroll() {
     if (unlocked) return;
     unlocked = true;
+    showInvite();
     root.classList.remove('locked');
     setTimeout(() => hero.classList.add('show-cue'), 700);
   }
@@ -108,14 +134,24 @@ const CONFIG = {
     }
     state = 'opening';
     hero.classList.add('is-opening');
-    document.body.classList.add('is-open');
-    requestAnimationFrame(updateTimeline);
+    // Render the invitation (its photos/fonts) only once the films are in, or when scrolling unlocks.
+    loopReady.then(showInvite);
     unlockAudio();                          // inside the tap, so audio is allowed later
-    try { const p = loop.play(); loop.pause(); if (p) p.catch(() => {}); } catch (e) { /* ignore */ }
+    [intro2, loop].forEach((v) => { try { const p = v.play(); v.pause(); if (p) p.catch(() => {}); } catch (e) { /* ignore */ } });
     // Recitation begins together with the opening animation, not on the tap.
     onFirstFrame(intro, () => { hero.classList.add('is-playing'); beginRecitationOnce(); });
     intro.play().catch(() => startLoop());
     setTimeout(unlockScroll, SCROLL_DELAY);
+  }
+
+  // Part 1 → part 2: part 1 holds its last frame until part 2 has painted.
+  function startPart2() {
+    if (state !== 'opening') return;
+    state = 'part2';
+    part2Ready.then(() => {
+      onFirstFrame(intro2, () => hero.classList.add('is-playing', 'is-part2'));
+      intro2.play().catch(() => startLoop());
+    });
   }
 
   function startLoop() {
@@ -134,8 +170,10 @@ const CONFIG = {
     });
   }
 
-  intro.addEventListener('ended', startLoop);
-  intro.addEventListener('error', () => { if (state !== 'closed') startLoop(); });
+  intro.addEventListener('ended', startPart2);
+  intro.addEventListener('error', () => { if (state !== 'closed') startPart2(); });
+  intro2.addEventListener('ended', startLoop);
+  intro2.addEventListener('error', () => { if (state !== 'closed') startLoop(); });
   loop.addEventListener('error', unlockScroll);
   seal.addEventListener('click', open);
   hint.addEventListener('click', open);
@@ -205,7 +243,7 @@ const CONFIG = {
   // Pause everything when the tab is hidden, resume when back.
   let resumeAyah = false;
   document.addEventListener('visibilitychange', () => {
-    const v = state === 'looping' ? loop : (state === 'opening' ? intro : null);
+    const v = state === 'looping' ? loop : state === 'part2' ? intro2 : state === 'opening' ? intro : null;
     if (document.hidden) {
       if (v) v.pause();
       resumeAyah = reciting && !ayah.paused;

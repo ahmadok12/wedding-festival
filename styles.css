@@ -27,7 +27,7 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 }
 .backdrop{ position:absolute; inset:0; z-index:-1; transition:opacity 1.6s ease; }
 .backdrop-day{
-  background:#e9dcc4 url("media/poster.jpg") center/cover no-repeat;
+  background:#e9dcc4 url("media/poster-540.jpg") center/cover no-repeat;
   filter:blur(28px) brightness(.82) saturate(1.05);
   transform:scale(1.15);
 }
@@ -58,15 +58,18 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
   background:transparent;
 }
 #loop{ z-index:1; }
-#intro{ z-index:2; }
-#poster{ z-index:3; transition:opacity .35s ease, filter .9s ease; }
+#intro2{ z-index:2; }
+#intro{ z-index:3; }
+#poster{ z-index:4; transition:opacity .35s ease, filter .9s ease; }
 /* While the films download: curtain, frame and seal recede so the text leads */
 .hero.is-loading #poster{ filter:brightness(.5) saturate(.8) blur(1.5px); }
 .hero.is-loading .backdrop-day{ filter:blur(28px) brightness(.45) saturate(.9); }
 .backdrop-day{ transition:opacity 1.6s ease, filter .9s ease; }
 .hero.is-loading .seal{ opacity:0; pointer-events:auto; }
 .hero.is-playing #poster{ opacity:0; }
+.hero.is-part2 #intro,
 .hero.is-looping #intro{ visibility:hidden; }
+.hero.is-looping #intro2{ visibility:hidden; }
 
 /* Seal hotspot */
 .seal{
