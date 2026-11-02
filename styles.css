@@ -237,10 +237,16 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
   background:var(--primary); color:#fff; border-radius:999px;
   padding:3px 9px; font:700 9px/1.2 "Plus Jakarta Sans",sans-serif; letter-spacing:.14em; text-transform:uppercase;
 }
-.bismillah{ font:400 24px/1.9 "Amiri","Playfair Display",serif; color:var(--primary); margin-top:.4rem; }
+.bismillah{ font:400 26px/1.9 "Amiri","Playfair Display",serif; color:var(--primary); }
 .welcome .eyebrow{ margin:.1rem 0 .9rem; max-width:20rem; }
 .together{ font:italic 400 15px/22px "Playfair Display",serif; color:var(--ink-soft); margin-bottom:.35rem !important; }
 .couple-name{ font:500 34px/1.25 "Playfair Display",Georgia,serif; color:var(--primary); }
+.person{ display:flex; flex-direction:column; align-items:center; }
+.person-link{ width:1px; height:14px; margin:.2rem 0 .3rem; background:linear-gradient(var(--foil), transparent); position:relative; }
+.person-link::after{ content:""; position:absolute; left:50%; top:-3px; width:5px; height:5px; transform:translateX(-50%) rotate(45deg); background:var(--foil); }
+.parentage{ font:italic 400 14.5px/21px "Playfair Display",serif; color:var(--ink-soft); }
+.parentage strong{ display:block; font:600 11.5px/18px "Plus Jakarta Sans",sans-serif; font-style:normal; letter-spacing:.14em; text-transform:uppercase; color:var(--secondary); margin-top:.15rem; }
+.welcome .heart-rule{ margin:1rem 0; }
 .heart-rule{ display:flex; align-items:center; gap:.75rem; margin:.3rem 0; color:var(--secondary); font-size:14px; }
 .heart-rule span{ width:2.2rem; height:1px; background:var(--sec-dim); }
 .date-ribbon{
@@ -259,6 +265,11 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .portrait-scrim{ position:absolute; inset:0; background:linear-gradient(to top, rgba(21,69,57,.82), transparent 45%, rgba(0,0,0,.25)); }
 .verse{ position:absolute; top:2.4rem; left:1rem; right:1rem; text-align:center; }
 .verse-text{ font:italic 400 17px/24px "Playfair Display",serif; color:rgba(255,255,255,.96); text-shadow:0 1px 6px rgba(0,0,0,.4); }
+.verse-play{ margin:.6rem auto 0; display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .75rem; border-radius:999px; border:1px solid rgba(254,222,178,.6); background:rgba(0,0,0,.25); color:#fff; font:600 10.5px/1 "Plus Jakarta Sans",sans-serif; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); transition:background .3s ease; }
+.verse-play .ic{ color:var(--sec-container); font-size:13px; }
+.verse-play.playing{ background:rgba(197,168,128,.45); }
+.verse-play.playing .ic{ animation:pulse 1s ease-in-out infinite; }
+@keyframes pulse{ 50%{ transform:scale(1.3); } }
 .verse-ref{ font:700 9.5px/14px "Plus Jakarta Sans",sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--sec-container); margin-top:.2rem !important; }
 .portrait-foot{ position:absolute; left:1rem; right:1rem; bottom:.85rem; display:flex; align-items:center; justify-content:space-between; color:#fff; }
 .portrait-loc{ display:flex; align-items:center; gap:.35rem; font:600 12px/16px "Plus Jakarta Sans",sans-serif; letter-spacing:.04em; }
@@ -307,6 +318,8 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .chip-champagne{ background:#fedeb2; color:#281800; background:linear-gradient(90deg,#fedeb2,#f3e3c3); }
 .event-time{ display:flex; align-items:center; gap:.3rem; font:600 12px/16px "Plus Jakarta Sans",sans-serif; color:var(--secondary); letter-spacing:.06em; }
 .event-card h4{ font:600 19px/27px "Playfair Display",serif; color:var(--primary); margin-bottom:.25rem; }
+.event-date{ display:flex; align-items:center; gap:.4rem; font:600 13px/18px "Plus Jakarta Sans",sans-serif; color:var(--ink); letter-spacing:.03em; margin-bottom:.45rem !important; }
+.event-date .ic{ color:var(--secondary); font-size:15px; }
 .event-desc{ font-size:13.5px; line-height:21px; color:var(--ink); margin-bottom:.6rem !important; }
 .event-venue{ display:flex; align-items:center; gap:.4rem; font-size:12px; line-height:17px; color:var(--ink-soft); text-decoration:none; margin-bottom:.75rem; }
 .event-venue > .ic:first-child{ color:var(--secondary); font-size:15px; }
@@ -326,6 +339,18 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .btn-soft:active{ transform:scale(.98); }
 .btn-soft .ic{ font-size:17px; }
 .btn-soft.done{ background:rgba(254,222,178,.45); }
+
+/* ── Venue ── */
+.venue-card{ padding:.75rem; overflow:hidden; }
+.venue-img{ position:relative; aspect-ratio:4/3; border-radius:120px 120px .6rem .6rem; overflow:hidden; background:#e7d6b3; }
+.venue-img img{ width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.18) rotate(-2deg); transition:transform 2.6s var(--ease); }
+.is-in .venue-img img{ transform:none; }
+.venue-badge{ position:absolute; left:50%; bottom:.8rem; transform:translateX(-50%); white-space:nowrap; padding:.45rem .85rem; border-radius:999px; background:rgba(21,69,57,.88); color:#fff; font:700 10px/1 "Plus Jakarta Sans",sans-serif; letter-spacing:.16em; text-transform:uppercase; box-shadow:inset 0 0 0 1px rgba(197,168,128,.6); }
+.venue-body{ text-align:center; padding:1.1rem .5rem .5rem; }
+.venue-body h4{ font:600 22px/30px "Playfair Display",serif; color:var(--primary); }
+.venue-town,.venue-when{ display:flex; align-items:center; justify-content:center; gap:.35rem; font-size:13px; line-height:20px; color:var(--ink-soft); margin-top:.2rem !important; }
+.venue-town .ic,.venue-when .ic{ color:var(--secondary); font-size:15px; }
+.venue-btn{ max-width:20rem; margin:1rem auto 0; }
 
 /* ── Attire ── */
 .mini-label{ display:block; font:700 10px/14px "Plus Jakarta Sans",sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin-bottom:.6rem; }

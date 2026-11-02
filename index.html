@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b1426">
 <meta name="robots" content="noindex,nofollow">
-<title>Waheed Weds Aisha</title>
-<meta name="description" content="You are warmly invited to celebrate the wedding of Waheed and Aisha.">
-<meta property="og:title" content="Waheed Weds Aisha">
+<title>Waheed Weds Jaweria</title>
+<meta name="description" content="You are warmly invited to celebrate the wedding of Waheed and Jaweria.">
+<meta property="og:title" content="Waheed Weds Jaweria">
 <meta property="og:description" content="Tap the seal to open your wedding invitation.">
 <meta property="og:image" content="media/poster.jpg">
 <link rel="preload" href="media/poster.jpg" as="image">
@@ -78,22 +78,29 @@
     <div class="wash wash-top" aria-hidden="true"></div>
 
     <!-- Monogram & welcome -->
-    <section class="welcome sec" aria-label="Welcome">
-      <div class="monogram" data-reveal="zoom">
-        <div class="monogram-ring"><span>W &amp; A</span></div>
-        <span class="monogram-tag">Lahore</span>
-      </div>
+    <audio id="ayah" src="media/ayah-an-naba-78-8.mp3" preload="auto"></audio>
+    <section class="welcome sec" id="welcome" aria-label="Welcome">
       <p class="bismillah" lang="ar" dir="rtl" data-reveal>بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
       <p class="eyebrow" data-reveal>In the name of Allah, the Most Beneficent, the Most Merciful</p>
       <p class="together" data-reveal>Together with their beloved families</p>
-      <h2 class="couple-name" data-reveal>Waheed</h2>
+
+      <div class="person" data-reveal>
+        <h2 class="couple-name">Waheed</h2>
+        <span class="person-link" aria-hidden="true"></span>
+        <p class="parentage">Beloved son of <strong>Shaikh Muhammad Ahmad</strong></p>
+      </div>
       <div class="heart-rule" data-reveal="zoom" aria-hidden="true">
         <span></span><svg class="ic"><use href="#i-favorite"/></svg><span></span>
       </div>
-      <h2 class="couple-name" data-reveal>Aisha</h2>
+      <div class="person" data-reveal>
+        <h2 class="couple-name">Jaweria</h2>
+        <span class="person-link" aria-hidden="true"></span>
+        <p class="parentage">Beloved daughter of <strong>Shaikh Haji Nadeem</strong></p>
+      </div>
+
       <div class="date-ribbon" data-reveal="zoom">
         <svg class="ic"><use href="#i-calendar_month"/></svg>
-        <span>November 21–23, 2025 • Lahore, Pakistan</span>
+        <span>Thursday • 12 November 2026</span>
       </div>
     </section>
 
@@ -106,6 +113,7 @@
           <div class="verse">
             <p class="verse-text">“And We created you in pairs”</p>
             <p class="verse-ref">Surah An-Naba • 78:8</p>
+            <button class="verse-play" id="ayahBtn" type="button" aria-label="Play the recitation of this ayah"><svg class="ic"><use href="#i-music_note"/></svg><span>Listen</span></button>
           </div>
           <div class="portrait-foot">
             <span class="portrait-loc"><svg class="ic"><use href="#i-location_on"/></svg>Haveli &amp; Mughal Courtyards</span>
@@ -134,65 +142,52 @@
       <header class="sec-head" data-reveal>
         <span class="eyebrow">Rituals &amp; Celebrations</span>
         <h3 id="itinerary-title">The Wedding Itinerary</h3>
-        <p>Three days of joyful festivities, sacred traditions, and timeless family fellowship.</p>
+        <p>A sacred beginning, celebrated with family and loved ones.</p>
       </header>
 
       <div class="timeline" id="timeline">
         <div class="timeline-line" aria-hidden="true"><div class="timeline-fill" id="timelineFill"></div></div>
 
         <article class="event" data-reveal="slide">
-          <div class="event-dot dot-gold" aria-hidden="true"><svg class="ic"><use href="#i-spa"/></svg></div>
-          <div class="card event-card">
-            <div class="event-top">
-              <span class="day-chip chip-gold">Day 01 • Friday</span>
-              <span class="event-time"><svg class="ic"><use href="#i-schedule"/></svg>7:00 PM</span>
-            </div>
-            <h4>Mehndi &amp; Sangeet Night</h4>
-            <p class="event-desc">Rhythmic beats of the dhol, golden marigold decor, intricate bridal henna rituals, and spirited family dance performances.</p>
-            <a class="event-venue" href="https://www.google.com/maps/search/?api=1&amp;query=Haveli+Barood+Khana+Lahore" target="_blank" rel="noopener noreferrer">
-              <svg class="ic"><use href="#i-domain"/></svg><span>Haveli Barood Khana, Historic Walled City, Lahore</span><svg class="ic ic-sm"><use href="#i-open_in_new"/></svg>
-            </a>
-            <div class="tags"><span>Festive Yellows &amp; Lime</span><span>Live Rabab</span></div>
-          </div>
-        </article>
-
-        <article class="event" data-reveal="slide">
           <div class="event-dot dot-green" aria-hidden="true"><svg class="ic"><use href="#i-crown"/></svg></div>
           <div class="card event-card">
             <div class="event-top">
-              <span class="day-chip chip-green">Day 02 • Saturday</span>
-              <span class="event-time"><svg class="ic"><use href="#i-schedule"/></svg>6:30 PM</span>
+              <span class="day-chip chip-green">Thursday</span>
+              <span class="event-time"><svg class="ic"><use href="#i-schedule"/></svg>1:00 PM</span>
             </div>
-            <h4>Baraat &amp; Nikah Ceremony</h4>
-            <p class="event-desc">The grand Baraat arrival, Sehra Bandi ritual, auspicious Nikah solemnization, royal Mughlai banquet, and heartfelt Rukhsati.</p>
-            <a class="event-venue" href="https://www.google.com/maps/search/?api=1&amp;query=Royal+Palm+Golf+and+Country+Club+Lahore" target="_blank" rel="noopener noreferrer">
-              <svg class="ic"><use href="#i-villa"/></svg><span>Royal Palm Golf &amp; Country Club (Bab-ul-Shams Lawn)</span><svg class="ic ic-sm"><use href="#i-open_in_new"/></svg>
-            </a>
-            <div class="tags"><span>Regal Emerald &amp; Zari</span><span>Gourmet Dastarkhwan</span></div>
-          </div>
-        </article>
-
-        <article class="event" data-reveal="slide">
-          <div class="event-dot dot-bronze" aria-hidden="true"><svg class="ic"><use href="#i-restaurant"/></svg></div>
-          <div class="card event-card">
-            <div class="event-top">
-              <span class="day-chip chip-champagne">Day 03 • Sunday</span>
-              <span class="event-time"><svg class="ic"><use href="#i-schedule"/></svg>7:30 PM</span>
-            </div>
-            <h4>Walima Reception</h4>
-            <p class="event-desc">An evening of thanksgiving hosted by the groom’s family with a musical mehfil, warm blessings, and fine continental cuisine.</p>
-            <a class="event-venue" href="https://www.google.com/maps/search/?api=1&amp;query=Pearl+Continental+Hotel+Lahore" target="_blank" rel="noopener noreferrer">
-              <svg class="ic"><use href="#i-hotel"/></svg><span>Crystal Grand Ballroom, Pearl Continental Lahore</span><svg class="ic ic-sm"><use href="#i-open_in_new"/></svg>
-            </a>
-            <div class="tags"><span>Champagne &amp; Pastels</span><span>Live Ghazal Mehfil</span></div>
+            <h4>Nikah Ceremony</h4>
+            <p class="event-date"><svg class="ic"><use href="#i-calendar_month"/></svg>12 November 2026</p>
+            <p class="event-desc">The sacred Nikah solemnization, celebrated in the presence of family and loved ones.</p>
           </div>
         </article>
       </div>
 
       <button class="btn-soft" id="calendarBtn" type="button" data-reveal>
         <svg class="ic"><use href="#i-edit_calendar"/></svg>
-        <span>Add Wedding Suite to Calendar (Google &amp; Apple)</span>
+        <span>Add Nikah to Calendar (Google &amp; Apple)</span>
       </button>
+    </section>
+
+    <!-- Venue -->
+    <section class="sec" id="venue" aria-labelledby="venue-title">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">Where We Gather</span>
+        <h3 id="venue-title">The Venue</h3>
+      </header>
+      <div class="card venue-card" data-reveal="zoom">
+        <div class="venue-img">
+          <img src="media/mosque-aerial.svg" alt="Illustration of a grand mosque seen from above, with a golden central dome, four minarets and a courtyard fountain" loading="lazy" width="800" height="600">
+          <span class="venue-badge">Nikah Ceremony</span>
+        </div>
+        <div class="venue-body" data-stagger>
+          <h4>Bano Market</h4>
+          <p class="venue-town"><svg class="ic"><use href="#i-location_on"/></svg>Bhowana, Punjab, Pakistan</p>
+          <p class="venue-when"><svg class="ic"><use href="#i-schedule"/></svg>Thursday, 12 November 2026 • 1:00 PM</p>
+          <a class="btn-primary venue-btn" href="https://www.google.com/maps/search/?api=1&amp;query=Bano+Market+Bhowana" target="_blank" rel="noopener noreferrer">
+            <svg class="ic"><use href="#i-pin_drop"/></svg><span>Open in Google Maps</span>
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- Dress code -->
@@ -254,10 +249,8 @@
               </div>
             </div>
             <fieldset class="field">
-              <legend class="label">Select Events You Will Attend</legend>
-              <label class="check-row"><span>Mehndi &amp; Sangeet (Nov 21)</span><input type="checkbox" name="events" value="Mehndi & Sangeet" checked><i class="check" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></i></label>
-              <label class="check-row"><span>Baraat &amp; Nikah (Nov 22)</span><input type="checkbox" name="events" value="Baraat & Nikah" checked><i class="check" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></i></label>
-              <label class="check-row"><span>Walima Reception (Nov 23)</span><input type="checkbox" name="events" value="Walima Reception" checked><i class="check" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></i></label>
+              <legend class="label">Will you attend?</legend>
+              <label class="check-row"><span>Nikah Ceremony (12 Nov)</span><input type="checkbox" name="events" value="Nikah Ceremony" checked><i class="check" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></i></label>
             </fieldset>
             <fieldset class="field">
               <legend class="label">Dietary Preferences</legend>
@@ -313,7 +306,7 @@
     <!-- Concierge -->
     <section class="sec" aria-labelledby="concierge-title">
       <header class="sec-head" data-reveal>
-        <span class="eyebrow">Lahore Hospitality</span>
+        <span class="eyebrow">Guest Hospitality</span>
         <h3 id="concierge-title">Guest Concierge</h3>
         <p>Dedicated shuttles and partner hotels arranged for out-of-town family &amp; friends.</p>
       </header>
@@ -323,7 +316,7 @@
           <div class="map-placeholder" aria-hidden="true"></div>
           <div class="map-label">
             <svg class="ic"><use href="#i-pin_drop"/></svg>
-            <div><p class="map-title">Central Wedding Zone</p><p class="map-sub">Canal Road &amp; Mall Road, Lahore</p></div>
+            <div><p class="map-title">Bano Market</p><p class="map-sub">Bhowana, Punjab</p></div>
           </div>
         </div>
         <div class="perks" data-stagger>
@@ -348,9 +341,9 @@
         <svg viewBox="0 0 64 20"><path d="M32 2c4 5 4 11 0 16-4-5-4-11 0-16zM20 10c4-4 8-4 12 0-4 4-8 4-12 0zm24 0c-4-4-8-4-12 0 4 4 8 4 12 0zM6 10h10m32 0h10" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
         <span></span>
       </div>
-      <p class="closing-names">Waheed &amp; Aisha</p>
+      <p class="closing-names">Waheed &amp; Jaweria</p>
       <p class="closing-dua">“May Allah bless this union and shower His mercy upon their new home.”</p>
-      <p class="closing-meta">November 2025 • Lahore, Pakistan</p>
+      <p class="closing-meta">12 November 2026</p>
     </footer>
 
     <div class="wash wash-bottom" aria-hidden="true"></div>

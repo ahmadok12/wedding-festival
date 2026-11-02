@@ -6,14 +6,11 @@ const CONFIG = {
   // Leave empty and guests will pick the contact themselves in WhatsApp.
   rsvpWhatsApp: '',
   // Shown in the Guest Concierge map.
-  mapQuery: 'Royal Palm Golf and Country Club, Lahore',
+  mapQuery: 'Bano Market, Bhowana',
   // Used by "Add Wedding Suite to Calendar". Times are Pakistan time (PKT, UTC+5).
   events: [
-    { title: 'Mehndi & Sangeet Night — Waheed & Aisha', start: '2025-11-21T19:00', hours: 4, location: 'Haveli Barood Khana, Historic Walled City, Lahore' },
-    { title: 'Baraat & Nikah Ceremony — Waheed & Aisha', start: '2025-11-22T18:30', hours: 5, location: 'Royal Palm Golf & Country Club (Bab-ul-Shams Lawn), Lahore' },
-    { title: 'Walima Reception — Waheed & Aisha', start: '2025-11-23T19:30', hours: 4, location: 'Crystal Grand Ballroom, Pearl Continental Lahore' }
-  ]
-};
+    { title: 'Nikah Ceremony — Waheed & Jaweria', start: '2026-11-12T13:00', hours: 3, location: 'Bano Market, Bhowana, Punjab, Pakistan' }
+  ]};
 
 (() => {
   'use strict';
@@ -26,6 +23,7 @@ const CONFIG = {
   const seal = document.getElementById('seal');
   const hint = document.getElementById('tapHint');
   const soundBtn = document.getElementById('sound');
+  const ayah = document.getElementById('ayah');
 
   let state = 'closed';   // closed → opening → looping
   let muted = false;
@@ -69,6 +67,7 @@ const CONFIG = {
     muted = m;
     intro.muted = m;
     loop.muted = m;
+    ayah.muted = m;
     soundBtn.setAttribute('aria-pressed', String(!m));
     soundBtn.setAttribute('aria-label', m ? 'Turn sound on' : 'Mute sound');
     syncPlayer();
@@ -94,6 +93,7 @@ const CONFIG = {
       if (p) p.catch(() => {});
     } catch (e) { /* ignore */ }
 
+    try { const q = ayah.play(); ayah.pause(); if (q) q.catch(() => {}); ayah.currentTime = 0; } catch (e) { /* ignore */ }
     onFirstFrame(intro, () => hero.classList.add('is-playing'));
     safePlay(intro);
     setTimeout(unlockScroll, SCROLL_DELAY);
@@ -210,21 +210,23 @@ const CONFIG = {
   }
   const esc = (s) => s.replace(/[\\,;]/g, (m) => '\\' + m);
   $('calendarBtn').addEventListener('click', (ev) => {
-    const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Waheed Weds Aisha//Invitation//EN', 'CALSCALE:GREGORIAN'];
+    const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Waheed Weds Jaweria//Invitation//EN', 'CALSCALE:GREGORIAN'];
     CONFIG.events.forEach((e, i) => {
-      lines.push('BEGIN:VEVENT', 'UID:waheed-aisha-' + i + '@invitation', 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z',
-        'DTSTART:' + icsDate(e.start, 0), 'DTEND:' + icsDate(e.start, e.hours), 'SUMMARY:' + esc(e.title), 'LOCATION:' + esc(e.location), 'END:VEVENT');
+      lines.push('BEGIN:VEVENT', 'UID:waheed-jaweria-' + i + '@invitation', 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z',
+        'DTSTART:' + icsDate(e.start, 0), 'DTEND:' + icsDate(e.start, e.hours), 'SUMMARY:' + esc(e.title));
+      if (e.location) lines.push('LOCATION:' + esc(e.location));
+      lines.push('END:VEVENT');
     });
     lines.push('END:VCALENDAR');
     const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'Waheed-Aisha-Wedding.ics';
+    a.href = url; a.download = 'Waheed-Jaweria-Nikah.ics';
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
     const btn = ev.currentTarget; const label = btn.querySelector('span');
     btn.classList.add('done'); label.textContent = 'Calendar file downloaded — open it to save';
-    setTimeout(() => { btn.classList.remove('done'); label.textContent = 'Add Wedding Suite to Calendar (Google & Apple)'; }, 3500);
+    setTimeout(() => { btn.classList.remove('done'); label.textContent = 'Add Nikah to Calendar (Google & Apple)'; }, 3500);
   });
 
   // RSVP: guest stepper
@@ -274,7 +276,7 @@ const CONFIG = {
     const diet = form.querySelector('input[name="diet"]:checked').value;
     const note = form.note.value.trim();
     const msg = [
-      'Assalam-o-Alaikum! RSVP for Waheed & Aisha’s wedding',
+      'Assalam-o-Alaikum! RSVP for Waheed & Jaweria’s Nikah',
       '',
       'Name: ' + name,
       'WhatsApp: ' + phone,
@@ -329,5 +331,41 @@ const CONFIG = {
       map.insertBefore(f, map.querySelector('.map-label'));
     }, { rootMargin: '300px 0px' });
     mo.observe(map);
+  }
+
+  /* Ayah recitation: “And We created you in pairs” (An-Naba 78:8).
+     Plays once when the invitation scrolls into view, softly lowering the
+     background music while it recites. Replay with the Listen button. */
+  const ayahBtn = $('ayahBtn');
+  let ayahPlayed = false;
+  function duck(on) {
+    const target = on ? 0.15 : 1;
+    [intro, loop].forEach((v) => {
+      const start = v.volume; const t0 = performance.now();
+      const step = (now) => {
+        const k = Math.min(1, (now - t0) / 500);
+        v.volume = start + (target - start) * k;
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+  function playAyah() {
+    try { ayah.currentTime = 0; } catch (e) { /* ignore */ }
+    const p = ayah.play();
+    if (p) p.catch(() => {});
+  }
+  ayah.addEventListener('play', () => { duck(true); ayahBtn.classList.add('playing'); });
+  ayah.addEventListener('ended', () => { duck(false); ayahBtn.classList.remove('playing'); });
+  ayah.addEventListener('pause', () => { if (!ayah.ended) { duck(false); ayahBtn.classList.remove('playing'); } });
+  ayahBtn.addEventListener('click', () => { ayahPlayed = true; if (ayah.paused) playAyah(); else ayah.pause(); });
+  if ('IntersectionObserver' in window) {
+    const ao = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting || ayahPlayed || state === 'closed' || muted) return;
+      ayahPlayed = true;
+      ao.disconnect();
+      setTimeout(playAyah, 600);
+    }, { threshold: 0.35 });
+    ao.observe($('welcome'));
   }
 })();
