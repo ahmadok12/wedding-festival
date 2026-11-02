@@ -48,24 +48,24 @@
 <symbol id="i-styler" viewBox="0 -960 960 960"><path d="M280-80v-249h-71q-36 0-62.5-24.5T120-414q0-27 13.5-50.5T172-499l281-120v-42q-37-10-60.5-40.5T369-770q0-46 33-78t79-32q46 0 79 32t33 78h-60q0-21-15.5-35.5T481-820q-21 0-36.5 14.5T429-770q0 23 15.5 38.5T483-716q12 0 21 8.5t9 20.5v68l275 120q25 11 38.5 34.5T840-414q0 36-26.5 60.5T751-329h-71v249H280Zm-71-309h71v-51h400v51h71q11 0 20-7.5t9-18.5q0-9-5-16t-13-11L483-568 198-442q-8 4-13 11t-5 15q0 11 8.5 19t20.5 8Zm131 249h280v-240H340v240Zm0-240h280-280Z"/></symbol>
 </svg>
 <main>
+    <button class="sound" id="sound" type="button" aria-pressed="true" aria-label="Pause recitation">
+      <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
   <!-- Opening: curtain frame → intro video → looping palace scene -->
   <section class="hero" id="hero" aria-label="Wedding invitation">
     <div class="backdrop backdrop-day" aria-hidden="true"></div>
     <div class="backdrop backdrop-night" aria-hidden="true"></div>
 
     <div class="stage" id="stage">
-      <video id="loop" class="layer" src="media/loop.mp4" playsinline loop preload="auto" aria-hidden="true"></video>
-      <video id="intro" class="layer" src="media/intro.mp4" playsinline preload="auto" aria-hidden="true"></video>
+      <video id="loop" class="layer" src="media/loop.mp4" muted playsinline loop preload="auto" aria-hidden="true"></video>
+      <video id="intro" class="layer" src="media/intro.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
       <img id="poster" class="layer" src="media/poster.jpg" alt="An ivory curtain tied with a golden wax seal, framed by white roses">
 
       <button class="seal" id="seal" type="button" aria-label="Tap the seal to open the invitation"></button>
       <p class="tap-hint" id="tapHint">Tap to open</p>
     </div>
 
-    <button class="sound" id="sound" type="button" aria-pressed="true" aria-label="Mute sound">
-      <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
 
     <div class="scroll-cue" id="cue" aria-hidden="true">
       <span>Scroll</span>
@@ -78,7 +78,7 @@
     <div class="wash wash-top" aria-hidden="true"></div>
 
     <!-- Monogram & welcome -->
-    <audio id="ayah" src="media/ayah-an-naba-78-8.mp3" preload="auto"></audio>
+    <audio id="ayah" src="media/quran/078008.mp3" preload="auto"></audio>
     <section class="welcome sec" id="welcome" aria-label="Welcome">
       <p class="bismillah" lang="ar" dir="rtl" data-reveal>بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
       <p class="eyebrow" data-reveal>In the name of Allah, the Most Beneficent, the Most Merciful</p>
@@ -113,7 +113,6 @@
           <div class="verse">
             <p class="verse-text">“And We created you in pairs”</p>
             <p class="verse-ref">Surah An-Naba • 78:8</p>
-            <button class="verse-play" id="ayahBtn" type="button" aria-label="Play the recitation of this ayah"><svg class="ic"><use href="#i-music_note"/></svg><span>Listen</span></button>
           </div>
           <div class="portrait-foot">
             <span class="portrait-loc"><svg class="ic"><use href="#i-location_on"/></svg>Haveli &amp; Mughal Courtyards</span>
@@ -121,19 +120,6 @@
           </div>
         </div>
 
-        <div class="player" id="player">
-          <div class="player-left">
-            <button class="player-btn" id="playerBtn" type="button" aria-pressed="false" aria-label="Play wedding music">
-              <svg class="ic ic-play"><use href="#i-music_note"/></svg>
-              <svg class="ic ic-pause"><use href="#i-pause"/></svg>
-            </button>
-            <div>
-              <div class="player-title"><span>Wedding Melody</span><span class="live-dot" aria-hidden="true"></span></div>
-              <p class="player-sub" id="playerSub">Tap to play the music</p>
-            </div>
-          </div>
-          <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-        </div>
       </div>
     </section>
 
@@ -190,161 +176,49 @@
       </div>
     </section>
 
-    <!-- Dress code -->
-    <section class="sec" aria-labelledby="attire-title">
-      <div class="card pad" data-reveal>
-        <header class="sec-head tight">
-          <span class="eyebrow">Wardrobe Inquiries</span>
-          <h3 id="attire-title">Sartorial Guide</h3>
-          <p>Traditional Pakistani formal and festive attire is warmly cherished.</p>
-        </header>
-
-        <span class="mini-label">Curated Celebration Palette</span>
-        <div class="swatches" data-stagger>
-          <div class="swatch"><i class="sw-emerald"></i><span>Emerald</span></div>
-          <div class="swatch"><i class="sw-zari"></i><span>Zari Gold</span></div>
-          <div class="swatch"><i class="sw-haldi"></i><span>Haldi Yellow</span></div>
-          <div class="swatch"><i class="sw-rose"></i><span>Rose Clay</span></div>
-          <div class="swatch"><i class="sw-champagne"></i><span>Champagne</span></div>
-        </div>
-
-        <div class="attire-list" data-stagger>
-          <div class="attire"><svg class="ic"><use href="#i-apparel"/></svg><div><h5>Mehndi Night</h5><p>Vibrant &amp; lively traditional. Colorful lehengas, ghararas, kurtas with waistcoats.</p></div></div>
-          <div class="attire"><svg class="ic"><use href="#i-checkroom"/></svg><div><h5>Baraat Ceremony</h5><p>Regal formal heirlooms. Embroidered sherwanis, formal evening lehengas, or sarees.</p></div></div>
-          <div class="attire"><svg class="ic"><use href="#i-dry_cleaning"/></svg><div><h5>Walima Reception</h5><p>Modern sophisticated formals. Tailored suits, or pastel bespoke gowns.</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- RSVP -->
-    <section class="sec" id="rsvp" aria-labelledby="rsvp-title">
-      <div class="card pad raised rsvp-card" data-reveal>
-        <header class="sec-head tight">
-          <span class="eyebrow">Mehmaan-Nawazi</span>
-          <h3 id="rsvp-title">Kindly Honor Us</h3>
-          <p>Please respond by <strong>October 25, 2025</strong> so we may reserve your banquet table.</p>
-        </header>
-
-        <div class="rsvp-swap" id="rsvpSwap">
-          <form class="rsvp-form" id="rsvpForm" novalidate>
-            <div class="field">
-              <label for="guestName">Guest Name(s) *</label>
-              <input id="guestName" name="name" type="text" placeholder="e.g. Dr. &amp; Mrs. Salman Khan" autocomplete="name" required>
-              <span class="field-error" id="nameError">Please enter your name</span>
-            </div>
-            <div class="field">
-              <label for="guestPhone">WhatsApp Contact *</label>
-              <input id="guestPhone" name="phone" type="tel" placeholder="+92 300 1234567" autocomplete="tel" inputmode="tel" required>
-              <span class="field-error" id="phoneError">Please enter a valid number</span>
-            </div>
-            <div class="field">
-              <span class="label">Number of Attendees</span>
-              <div class="stepper">
-                <span class="stepper-label">Total Attending</span>
-                <div class="stepper-ctrl">
-                  <button type="button" class="step-btn" id="stepMinus" aria-label="Fewer guests"><svg class="ic"><use href="#i-remove"/></svg></button>
-                  <span class="step-val" id="guestCount" aria-live="polite">2</span>
-                  <button type="button" class="step-btn plus" id="stepPlus" aria-label="More guests"><svg class="ic"><use href="#i-add"/></svg></button>
-                </div>
-              </div>
-            </div>
-            <fieldset class="field">
-              <legend class="label">Will you attend?</legend>
-              <label class="check-row"><span>Nikah Ceremony (12 Nov)</span><input type="checkbox" name="events" value="Nikah Ceremony" checked><i class="check" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></i></label>
-            </fieldset>
-            <fieldset class="field">
-              <legend class="label">Dietary Preferences</legend>
-              <div class="radio-grid">
-                <label class="radio-row"><input type="radio" name="diet" value="Halal Traditional" checked><i aria-hidden="true"></i><span>Halal Traditional</span></label>
-                <label class="radio-row"><input type="radio" name="diet" value="Strict Vegetarian"><i aria-hidden="true"></i><span>Strict Vegetarian</span></label>
-              </div>
-            </fieldset>
-            <div class="field">
-              <label for="guestNote">Blessings / Note for the Couple</label>
-              <textarea id="guestNote" name="note" rows="2" placeholder="Share your prayers or loving warm wishes..."></textarea>
-            </div>
-            <button class="btn-primary" type="submit">
-              <svg class="ic"><use href="#i-mark_email_read"/></svg>
-              <span>Confirm Attendance</span>
-            </button>
-          </form>
-
-          <div class="rsvp-success" id="rsvpSuccess" hidden>
-            <div class="success-badge">
-              <svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" pathLength="1"/><path d="M15 27l7 7 15-16" pathLength="1"/></svg>
-            </div>
-            <h4>JazakAllah Khair!</h4>
-            <p id="successText">Your response is ready. Tap below to send it to the family on WhatsApp.</p>
-            <a class="btn-primary whatsapp" id="sendWhatsApp" href="#" target="_blank" rel="noopener noreferrer">
-              <svg class="ic"><use href="#i-chat"/></svg><span>Send on WhatsApp</span>
-            </a>
-            <button class="text-link" id="rsvpReset" type="button">Edit or submit another response</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- E-Salami -->
-    <section class="sec" aria-labelledby="salami-title">
-      <div class="card pad soft salami" data-reveal>
-        <div class="salami-icon" aria-hidden="true"><svg class="ic"><use href="#i-volunteer_activism"/></svg></div>
-        <h3 class="h-sm" id="salami-title">E-Salami &amp; Blessings</h3>
-        <p class="salami-text">Your loving presence and prayers are our greatest gift. Should you wish to honor our new home with digital Shagun or make a charity donation in our name:</p>
-        <dl class="bank" data-stagger>
-          <div><dt>Raast ID / Bank</dt><dd class="strong" id="bankName">Bank Name</dd></div>
-          <div><dt>Title</dt><dd id="bankTitle">Account Title</dd></div>
-          <div><dt>IBAN</dt><dd class="mono" id="bankIban">PK00 XXXX 0000 0000 0000 00</dd></div>
-        </dl>
-        <button class="pill-btn" id="copyBtn" type="button">
-          <svg class="ic ic-copy"><use href="#i-content_copy"/></svg>
-          <svg class="ic ic-done"><use href="#i-check"/></svg>
-          <span id="copyText">Copy Bank Details</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- Concierge -->
-    <section class="sec" aria-labelledby="concierge-title">
+    <!-- Special message for guests -->
+    <section class="sec message" id="message" aria-labelledby="message-title">
       <header class="sec-head" data-reveal>
-        <span class="eyebrow">Guest Hospitality</span>
-        <h3 id="concierge-title">Guest Concierge</h3>
-        <p>Dedicated shuttles and partner hotels arranged for out-of-town family &amp; friends.</p>
+        <span class="eyebrow">A Heartfelt Request</span>
+        <h3 id="message-title">A Special Message for Our Guests</h3>
       </header>
 
-      <div class="card map-card" data-reveal="zoom">
-        <div class="map" id="map">
-          <div class="map-placeholder" aria-hidden="true"></div>
-          <div class="map-label">
-            <svg class="ic"><use href="#i-pin_drop"/></svg>
-            <div><p class="map-title">Bano Market</p><p class="map-sub">Bhowana, Punjab</p></div>
+      <div class="card pad message-card" data-reveal>
+        <p class="message-lead">Your presence is the greatest blessing of our day. As Waheed &amp; Jaweria begin this new chapter of their lives, we warmly invite you to share in our joy and gratitude.</p>
+      </div>
+
+      <div class="card pad dua-card" data-reveal="zoom">
+        <div class="round-icon" aria-hidden="true"><svg class="ic"><use href="#i-volunteer_activism"/></svg></div>
+        <h4 class="h-sm">Please Remember Them in Your Duas</h4>
+        <p class="dua-ar" lang="ar" dir="rtl" data-reveal="fade">بَارَكَ ٱللَّٰهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+        <p class="dua-en" data-reveal="fade">“May Allah bless you both, shower His blessings upon you, and unite you in goodness.”</p>
+        <p class="dua-note">We humbly request you to pray for a marriage filled with love, mercy and barakah, and for happiness in this life and the next.</p>
+      </div>
+
+      <div class="card pad time-card" data-reveal>
+        <div class="time-row">
+          <div class="clock" aria-hidden="true">
+            <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" pathLength="1"/><path class="hand-h" d="M32 32V18"/><path class="hand-m" d="M32 32L43 38"/><circle cx="32" cy="32" r="2.5" class="pin"/></svg>
+          </div>
+          <div>
+            <h4 class="h-sm">Kindly Arrive on Time</h4>
+            <p>The Nikah will begin at <strong>1:00 PM</strong> sharp. We kindly request you to arrive a little early so you may be seated before the ceremony begins.</p>
           </div>
         </div>
-        <div class="perks" data-stagger>
-          <div class="perk"><svg class="ic"><use href="#i-local_taxi"/></svg><h6>Valet Parking</h6><p>Complimentary valet available at all entry gates.</p></div>
-          <div class="perk"><svg class="ic"><use href="#i-directions_bus"/></svg><h6>Airport Shuttle</h6><p>Allama Iqbal Intl (LHE) direct hotel transfers.</p></div>
-        </div>
       </div>
 
-      <div class="card hotel" data-reveal>
-        <div class="hotel-left">
-          <div class="hotel-icon" aria-hidden="true"><svg class="ic"><use href="#i-hotel"/></svg></div>
-          <div><h5>Pearl Continental Lahore</h5><p>Special Code: <span class="code">WAWED25</span></p></div>
+      <footer class="closing" data-reveal>
+        <div class="arabesque" aria-hidden="true">
+          <span></span>
+          <svg viewBox="0 0 64 20"><path d="M32 2c4 5 4 11 0 16-4-5-4-11 0-16zM20 10c4-4 8-4 12 0-4 4-8 4-12 0zm24 0c-4-4-8-4-12 0 4 4 8 4 12 0zM6 10h10m32 0h10" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <span></span>
         </div>
-        <a class="small-btn" href="https://www.google.com/maps/search/?api=1&amp;query=Pearl+Continental+Hotel+Lahore" target="_blank" rel="noopener noreferrer">Book Stay</a>
-      </div>
+        <p class="closing-with">With love and gratitude,</p>
+        <p class="closing-families">The families of Shaikh Muhammad Ahmad<br>&amp; Shaikh Haji Nadeem</p>
+        <p class="closing-names">Waheed &amp; Jaweria</p>
+        <p class="closing-meta">12 November 2026 • Bhowana</p>
+      </footer>
     </section>
-
-    <!-- Closing -->
-    <footer class="closing sec" data-reveal>
-      <div class="arabesque" aria-hidden="true">
-        <span></span>
-        <svg viewBox="0 0 64 20"><path d="M32 2c4 5 4 11 0 16-4-5-4-11 0-16zM20 10c4-4 8-4 12 0-4 4-8 4-12 0zm24 0c-4-4-8-4-12 0 4 4 8 4 12 0zM6 10h10m32 0h10" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        <span></span>
-      </div>
-      <p class="closing-names">Waheed &amp; Jaweria</p>
-      <p class="closing-dua">“May Allah bless this union and shower His mercy upon their new home.”</p>
-      <p class="closing-meta">12 November 2026</p>
-    </footer>
 
     <div class="wash wash-bottom" aria-hidden="true"></div>
   </div>

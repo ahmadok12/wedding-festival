@@ -123,8 +123,8 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 
 /* Sound toggle */
 .sound{
-  position:absolute; z-index:10;
-  top:max(14px, env(safe-area-inset-top)); right:14px;
+  position:fixed; z-index:30;
+  bottom:max(16px, env(safe-area-inset-bottom)); right:16px;
   width:42px; height:42px; border-radius:50%;
   display:grid; place-items:center;
   color:#f8e7bd;
@@ -139,7 +139,7 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .sound .icon-off{ display:none; }
 .sound[aria-pressed="false"] .icon-on{ display:none; }
 .sound[aria-pressed="false"] .icon-off{ display:block; }
-.hero.is-opening .sound{ opacity:1; pointer-events:auto; }
+.is-open .sound{ opacity:1; pointer-events:auto; }
 
 /* Scroll cue */
 .scroll-cue{
@@ -223,20 +223,6 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 
 /* ── Welcome ── */
 .welcome{ text-align:center; display:flex; flex-direction:column; align-items:center; margin-bottom:2.5rem; }
-.monogram{ position:relative; width:76px; height:76px; margin-bottom:1.5rem; }
-.monogram-ring{
-  width:100%; height:100%; border-radius:50%;
-  display:grid; place-items:center;
-  background:radial-gradient(circle, rgba(254,222,178,.55) 0 58%, var(--s-low) 59%);
-  border:1px solid var(--foil);
-  box-shadow:0 0 0 4px var(--s-low), 0 0 0 5px var(--foil-soft), var(--shadow);
-}
-.monogram-ring span{ font:600 15px/1 "Playfair Display",serif; letter-spacing:.14em; text-indent:.14em; color:var(--secondary); }
-.monogram-tag{
-  position:absolute; left:50%; bottom:-8px; transform:translateX(-50%);
-  background:var(--primary); color:#fff; border-radius:999px;
-  padding:3px 9px; font:700 9px/1.2 "Plus Jakarta Sans",sans-serif; letter-spacing:.14em; text-transform:uppercase;
-}
 .bismillah{ font:400 26px/1.9 "Amiri","Playfair Display",serif; color:var(--primary); }
 .welcome .eyebrow{ margin:.1rem 0 .9rem; max-width:20rem; }
 .together{ font:italic 400 15px/22px "Playfair Display",serif; color:var(--ink-soft); margin-bottom:.35rem !important; }
@@ -265,11 +251,6 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .portrait-scrim{ position:absolute; inset:0; background:linear-gradient(to top, rgba(21,69,57,.82), transparent 45%, rgba(0,0,0,.25)); }
 .verse{ position:absolute; top:2.4rem; left:1rem; right:1rem; text-align:center; }
 .verse-text{ font:italic 400 17px/24px "Playfair Display",serif; color:rgba(255,255,255,.96); text-shadow:0 1px 6px rgba(0,0,0,.4); }
-.verse-play{ margin:.6rem auto 0; display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .75rem; border-radius:999px; border:1px solid rgba(254,222,178,.6); background:rgba(0,0,0,.25); color:#fff; font:600 10.5px/1 "Plus Jakarta Sans",sans-serif; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); transition:background .3s ease; }
-.verse-play .ic{ color:var(--sec-container); font-size:13px; }
-.verse-play.playing{ background:rgba(197,168,128,.45); }
-.verse-play.playing .ic{ animation:pulse 1s ease-in-out infinite; }
-@keyframes pulse{ 50%{ transform:scale(1.3); } }
 .verse-ref{ font:700 9.5px/14px "Plus Jakarta Sans",sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--sec-container); margin-top:.2rem !important; }
 .portrait-foot{ position:absolute; left:1rem; right:1rem; bottom:.85rem; display:flex; align-items:center; justify-content:space-between; color:#fff; }
 .portrait-loc{ display:flex; align-items:center; gap:.35rem; font:600 12px/16px "Plus Jakarta Sans",sans-serif; letter-spacing:.04em; }
@@ -277,27 +258,6 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .glass-chip{ font:700 10px/1 "Plus Jakarta Sans",sans-serif; letter-spacing:.14em; text-transform:uppercase; padding:.45rem .7rem; border-radius:999px; background:rgba(255,255,255,.2); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
 .verse,.portrait-foot{ opacity:0; transform:translateY(10px); transition:opacity 1s var(--ease) .7s, transform 1s var(--ease) .7s; }
 .is-in .verse,.is-in .portrait-foot{ opacity:1; transform:none; }
-
-.player{ margin-top:.75rem; background:var(--s-low); border-radius:.6rem; padding:.75rem; display:flex; align-items:center; justify-content:space-between; }
-.player-left{ display:flex; align-items:center; gap:.75rem; min-width:0; }
-.player-btn{ width:42px; height:42px; border-radius:50%; border:0; background:var(--primary); color:#fff; display:grid; place-items:center; cursor:pointer; box-shadow:inset 0 0 0 1px rgba(197,168,128,.6), 0 2px 6px rgba(21,69,57,.25); transition:transform .2s ease, background .3s ease; flex:none; }
-.player-btn:active{ transform:scale(.94); }
-.player-btn .ic{ font-size:20px; }
-.player-btn .ic-pause{ display:none; }
-.player.playing .player-btn .ic-play{ display:none; }
-.player.playing .player-btn .ic-pause{ display:inline-block; }
-.player-title{ display:flex; align-items:center; gap:.4rem; font:600 12.5px/18px "Plus Jakarta Sans",sans-serif; color:var(--primary); letter-spacing:.04em; }
-.player-sub{ font-size:11.5px; line-height:16px; color:var(--ink-soft); }
-.live-dot{ width:6px; height:6px; border-radius:50%; background:var(--secondary); opacity:.35; }
-.player.playing .live-dot{ opacity:1; animation:ping 1.4s ease-out infinite; }
-@keyframes ping{ 0%{ box-shadow:0 0 0 0 rgba(114,91,56,.6); } 100%{ box-shadow:0 0 0 7px rgba(114,91,56,0); } }
-.eq{ display:flex; align-items:flex-end; gap:4px; height:20px; padding:0 .5rem; }
-.eq span{ width:4px; border-radius:4px; background:var(--secondary); height:5px; opacity:.5; transition:height .3s ease, opacity .3s ease; }
-.player.playing .eq span{ opacity:1; animation:eq 1s ease-in-out infinite; }
-.player.playing .eq span:nth-child(2){ animation-delay:-.35s; animation-duration:.8s; }
-.player.playing .eq span:nth-child(3){ animation-delay:-.6s; animation-duration:1.15s; }
-.player.playing .eq span:nth-child(4){ animation-delay:-.15s; animation-duration:.9s; }
-@keyframes eq{ 0%,100%{ height:5px; } 50%{ height:20px; } }
 
 /* ── Timeline ── */
 .timeline{ position:relative; padding-left:2rem; display:grid; gap:1rem; }
@@ -352,137 +312,33 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .venue-town .ic,.venue-when .ic{ color:var(--secondary); font-size:15px; }
 .venue-btn{ max-width:20rem; margin:1rem auto 0; }
 
-/* ── Attire ── */
-.mini-label{ display:block; font:700 10px/14px "Plus Jakarta Sans",sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin-bottom:.6rem; }
-.swatches{ display:grid; grid-template-columns:repeat(5,1fr); gap:.5rem; text-align:center; margin-bottom:1.1rem; }
-.swatch{ display:flex; flex-direction:column; align-items:center; gap:.3rem; }
-.swatch i{ width:34px; height:34px; border-radius:50%; box-shadow:0 2px 6px rgba(0,0,0,.12), inset 0 0 0 1px rgba(255,255,255,.25); }
-.swatch span{ font:600 9.5px/12px "Plus Jakarta Sans",sans-serif; color:var(--ink-soft); letter-spacing:.04em; }
-.sw-emerald{ background:#154539; } .sw-zari{ background:#c5a880; } .sw-haldi{ background:#e5b25d; } .sw-rose{ background:#d4a59a; } .sw-champagne{ background:#f5f1e6; }
-.attire-list{ display:grid; gap:.6rem; }
-.attire{ display:flex; align-items:flex-start; gap:.75rem; padding:.7rem .8rem; border-radius:.6rem; background:var(--s-low); }
-.attire > .ic{ color:var(--secondary); font-size:20px; margin-top:2px; }
-.attire h5{ font:600 12.5px/18px "Plus Jakarta Sans",sans-serif; color:var(--primary); letter-spacing:.03em; }
-.attire p{ font-size:12.5px; line-height:19px; color:var(--ink-soft); }
-
-/* ── RSVP ── */
-.rsvp-swap{ position:relative; transition:height .6s var(--ease); }
-.rsvp-form{ display:grid; gap:1rem; }
-.field{ border:0; margin:0; padding:0; min-width:0; }
-.field label:not(.check-row):not(.radio-row),.field .label{ display:block; font:600 12px/16px "Plus Jakarta Sans",sans-serif; color:var(--ink); margin-bottom:.4rem; letter-spacing:.02em; padding:0; }
-.field input[type="text"],.field input[type="tel"],.field textarea{
-  width:100%; font:400 14px/20px "Plus Jakarta Sans",sans-serif; color:var(--ink);
-  background:var(--s-low); border:1px solid transparent; border-radius:.55rem; padding:.7rem .9rem;
-  transition:border-color .25s ease, box-shadow .25s ease, background .25s ease; resize:none;
-}
-.field input::placeholder,.field textarea::placeholder{ color:rgba(64,73,69,.5); }
-.field input:focus,.field textarea:focus{ outline:0; background:#fff; border-color:var(--primary-c); box-shadow:0 0 0 4px rgba(47,93,80,.12); }
-.field.invalid input{ border-color:#ba1a1a; animation:shake .4s ease; }
-.field-error{ display:block; max-height:0; overflow:hidden; opacity:0; font-size:11.5px; color:#ba1a1a; transition:max-height .3s ease, opacity .3s ease, margin .3s ease; }
-.field.invalid .field-error{ max-height:20px; opacity:1; margin-top:.3rem; }
-@keyframes shake{ 0%,100%{ transform:none; } 25%{ transform:translateX(-5px); } 75%{ transform:translateX(5px); } }
-
-.stepper{ display:flex; align-items:center; justify-content:space-between; background:var(--s-low); border-radius:.55rem; padding:.45rem; }
-.stepper-label{ font-size:12.5px; color:var(--ink-soft); padding-left:.5rem; }
-.stepper-ctrl{ display:flex; align-items:center; gap:.75rem; }
-.step-btn{ width:34px; height:34px; border-radius:50%; border:0; display:grid; place-items:center; cursor:pointer; background:var(--s); color:var(--primary); transition:transform .15s ease, opacity .2s; font-size:16px; }
-.step-btn.plus{ background:var(--primary); color:#fff; }
-.step-btn:active{ transform:scale(.9); }
-.step-btn:disabled{ opacity:.35; cursor:default; }
-.step-val{ font:600 17px/1 "Playfair Display",serif; color:var(--primary); min-width:1.2em; text-align:center; display:inline-block; }
-.step-val.bump{ animation:bump .35s var(--ease); }
-@keyframes bump{ 0%{ transform:translateY(-6px); opacity:0; } 100%{ transform:none; opacity:1; } }
-
-.check-row{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.7rem .8rem; border-radius:.55rem; background:var(--s-low); cursor:pointer; font-size:13px; margin-bottom:.45rem; transition:background .25s ease; }
-.check-row:last-child{ margin-bottom:0; }
-.check-row input,.radio-row input{ position:absolute; opacity:0; pointer-events:none; }
-.check{ width:20px; height:20px; border-radius:5px; border:1.5px solid var(--foil); display:grid; place-items:center; color:var(--sec-container); font-size:14px; transition:background .25s ease, border-color .25s ease; }
-.check .ic{ transform:scale(0); transition:transform .3s cubic-bezier(.3,1.6,.5,1); }
-.check-row input:checked ~ .check{ background:var(--primary); border-color:var(--primary); }
-.check-row input:checked ~ .check .ic{ transform:scale(1); }
-.check-row:has(input:checked){ background:rgba(254,222,178,.28); }
-.check-row input:focus-visible ~ .check,.radio-row input:focus-visible ~ i{ box-shadow:0 0 0 3px rgba(47,93,80,.25); }
-.radio-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.5rem; }
-.radio-row{ display:flex; align-items:center; gap:.5rem; padding:.65rem .7rem; border-radius:.55rem; background:var(--s-low); cursor:pointer; font-size:12.5px; position:relative; }
-.radio-row i{ width:17px; height:17px; border-radius:50%; border:1.5px solid var(--foil); flex:none; position:relative; transition:border-color .25s ease; }
-.radio-row i::after{ content:""; position:absolute; inset:3px; border-radius:50%; background:var(--primary); transform:scale(0); transition:transform .3s cubic-bezier(.3,1.6,.5,1); }
-.radio-row input:checked ~ i{ border-color:var(--primary); }
-.radio-row input:checked ~ i::after{ transform:scale(1); }
-
-.btn-primary{ width:100%; display:flex; align-items:center; justify-content:center; gap:.55rem; padding:.95rem 1rem; margin-top:.4rem; border:0; border-radius:.55rem; background:var(--primary); color:var(--surface); font:600 14px/20px "Plus Jakarta Sans",sans-serif; letter-spacing:.08em; text-decoration:none; cursor:pointer; box-shadow:inset 0 0 0 1px rgba(197,168,128,.7), 0 6px 16px -4px rgba(21,69,57,.4); transition:background .25s ease, transform .2s ease, box-shadow .25s ease; }
-.btn-primary .ic{ color:var(--sec-container); font-size:19px; }
-.btn-primary:hover{ background:var(--primary-c); transform:translateY(-1px); }
-.btn-primary:active{ transform:scale(.98); }
-
-.rsvp-success{ text-align:center; padding:1rem 0 .25rem; }
-.rsvp-success > *{ opacity:0; transform:translateY(10px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
-.rsvp-success.show > *{ opacity:1; transform:none; }
-.rsvp-success.show > :nth-child(2){ transition-delay:.5s; } .rsvp-success.show > :nth-child(3){ transition-delay:.65s; }
-.rsvp-success.show > :nth-child(4){ transition-delay:.8s; } .rsvp-success.show > :nth-child(5){ transition-delay:.95s; }
-.success-badge{ width:64px; height:64px; margin:0 auto .9rem; border-radius:50%; background:rgba(254,222,178,.55); display:grid; place-items:center; }
-.success-badge svg{ width:44px; height:44px; fill:none; stroke:var(--primary); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
-.success-badge circle,.success-badge path{ stroke-dasharray:1; stroke-dashoffset:1; }
-.rsvp-success.show .success-badge circle{ transition:stroke-dashoffset .7s ease .15s; stroke-dashoffset:0; }
-.rsvp-success.show .success-badge path{ transition:stroke-dashoffset .45s ease .75s; stroke-dashoffset:0; }
-.rsvp-success h4{ font:600 20px/28px "Playfair Display",serif; color:var(--primary); margin-bottom:.3rem; }
-.rsvp-success p{ font-size:13px; line-height:20px; color:var(--ink-soft); max-width:20rem; margin:0 auto 1rem; }
-.btn-primary.whatsapp{ max-width:20rem; margin:0 auto .9rem; }
-.text-link{ background:none; border:0; cursor:pointer; font:600 11px/16px "Plus Jakarta Sans",sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--secondary); text-decoration:underline; text-underline-offset:4px; text-decoration-color:var(--foil); }
-
-/* ── Salami ── */
-.salami{ text-align:center; }
-.salami-icon{ width:44px; height:44px; border-radius:50%; margin:0 auto .6rem; display:grid; place-items:center; background:rgba(254,222,178,.6); color:var(--secondary); font-size:22px; }
-.salami-text{ font-size:12.5px; line-height:19px; color:var(--ink-soft); max-width:21rem; margin:.3rem auto .9rem !important; }
-.bank{ background:#fff; border-radius:.6rem; padding:.85rem 1rem; max-width:21rem; margin:0 auto .9rem; box-shadow:var(--shadow); text-align:left; display:grid; gap:.45rem; }
-.bank div{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
-.bank dt{ font:700 10px/14px "Plus Jakarta Sans",sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
-.bank dd{ margin:0; font-size:12.5px; font-weight:600; color:var(--ink); text-align:right; }
-.bank dd.strong{ color:var(--primary); font-weight:700; }
-.bank dd.mono{ font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace; color:var(--secondary); font-size:11.5px; letter-spacing:.02em; }
-.pill-btn{ display:inline-flex; align-items:center; gap:.4rem; padding:.55rem 1.1rem; border-radius:999px; border:1px solid transparent; background:var(--s); color:var(--primary); font:600 12px/16px "Plus Jakarta Sans",sans-serif; cursor:pointer; transition:background .3s ease, border-color .3s ease, transform .2s ease; }
-.pill-btn:hover{ background:var(--s-high); }
-.pill-btn:active{ transform:scale(.96); }
-.pill-btn .ic-done{ display:none; }
-.pill-btn.copied{ background:rgba(254,222,178,.6); border-color:var(--foil); }
-.pill-btn.copied .ic-copy{ display:none; }
-.pill-btn.copied .ic-done{ display:inline-block; animation:pop .4s cubic-bezier(.3,1.6,.5,1); }
-@keyframes pop{ from{ transform:scale(0); } to{ transform:scale(1); } }
-
-/* ── Concierge ── */
-.map-card{ padding:.75rem; margin-bottom:1rem; }
-.map{ position:relative; height:190px; border-radius:.6rem; overflow:hidden; margin-bottom:.75rem; background:#e3e8e1; }
-.map-placeholder{ position:absolute; inset:0; background:
-  linear-gradient(115deg, transparent 47%, rgba(255,255,255,.95) 47.5% 49%, transparent 49.5%),
-  linear-gradient(25deg, transparent 58%, rgba(255,255,255,.85) 58.5% 59.6%, transparent 60%),
-  linear-gradient(90deg, transparent 30%, rgba(197,168,128,.55) 30.3% 31.4%, transparent 31.7%),
-  repeating-linear-gradient(0deg, transparent 0 34px, rgba(255,255,255,.6) 34px 36px),
-  repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,.6) 46px 48px),
-  radial-gradient(60% 50% at 70% 30%, #cfdccd, transparent),
-  #dfe6dd; }
-.map iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; opacity:0; transition:opacity 1s ease; filter:saturate(.75) sepia(.12); }
-.map iframe.loaded{ opacity:1; }
-.map::after{ content:""; position:absolute; inset:0; background:rgba(21,69,57,.12); pointer-events:none; }
-.map-label{ position:absolute; z-index:2; left:.65rem; bottom:.65rem; display:flex; align-items:center; gap:.5rem; padding:.45rem .75rem; border-radius:.55rem; background:rgba(255,255,255,.92); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 2px 8px rgba(0,0,0,.12); transform:translateY(12px); opacity:0; transition:all .7s var(--ease) .5s; }
-.is-in .map-label{ transform:none; opacity:1; }
-.map-label .ic{ color:var(--secondary); font-size:18px; }
-.map-title{ font:600 12px/16px "Plus Jakarta Sans",sans-serif; color:var(--primary); }
-.map-sub{ font-size:10.5px; line-height:14px; color:var(--ink-soft); }
-.perks{ display:grid; grid-template-columns:1fr 1fr; gap:.5rem; }
-.perk{ padding:.7rem; border-radius:.55rem; background:var(--s-low); }
-.perk .ic{ color:var(--secondary); font-size:18px; margin-bottom:.25rem; }
-.perk h6{ font:600 12px/16px "Plus Jakarta Sans",sans-serif; color:var(--primary); }
-.perk p{ font-size:11.5px; line-height:16px; color:var(--ink-soft); }
-.hotel{ display:flex; align-items:center; justify-content:space-between; gap:.75rem; padding:.85rem; }
-.hotel-left{ display:flex; align-items:center; gap:.75rem; }
-.hotel-icon{ width:42px; height:42px; border-radius:.55rem; background:var(--s); color:var(--primary); display:grid; place-items:center; font-size:19px; flex:none; }
-.hotel h5{ font:600 13px/18px "Plus Jakarta Sans",sans-serif; color:var(--primary); }
-.hotel p{ font-size:11.5px; color:var(--ink-soft); }
-.code{ font-family:ui-monospace,Menlo,Consolas,monospace; color:var(--secondary); font-weight:700; letter-spacing:.06em; }
-.small-btn{ flex:none; padding:.5rem .85rem; border-radius:.55rem; background:var(--s-high); color:var(--primary); font:600 12px/16px "Plus Jakarta Sans",sans-serif; text-decoration:none; transition:background .25s ease; }
-.small-btn:hover{ background:var(--s); }
+/* ── Special message ── */
+.message .card{ margin-bottom:1rem; }
+.message-lead{ font:italic 400 17px/28px "Playfair Display",serif; color:var(--ink); text-align:center; }
+.dua-card{ text-align:center; background:linear-gradient(180deg,#fff, #fbf6ea); }
+.round-icon{ width:46px; height:46px; border-radius:50%; margin:0 auto .7rem; display:grid; place-items:center; background:rgba(254,222,178,.6); color:var(--secondary); font-size:22px; }
+.dua-ar{ font:400 25px/2 "Amiri",serif; color:var(--primary); margin:.6rem 0 .2rem !important; }
+.dua-en{ font:italic 400 15px/23px "Playfair Display",serif; color:var(--secondary); max-width:22rem; margin:0 auto .8rem !important; }
+.dua-note{ font-size:13px; line-height:20px; color:var(--ink-soft); max-width:22rem; margin:0 auto !important; }
+.js .dua-card .dua-ar{ transition-delay:.35s; } .js .dua-card .dua-en{ transition-delay:.6s; }
+.time-row{ display:flex; align-items:flex-start; gap:1rem; }
+.time-row p{ font-size:13.5px; line-height:21px; color:var(--ink-soft); margin-top:.25rem !important; }
+.time-row strong{ color:var(--primary); }
+.clock{ flex:none; width:56px; height:56px; border-radius:50%; background:rgba(21,69,57,.07); display:grid; place-items:center; }
+.clock svg{ width:46px; height:46px; fill:none; stroke:var(--primary); stroke-width:2.6; stroke-linecap:round; }
+.clock circle:first-child{ stroke:var(--foil); stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset 1.4s var(--ease) .2s; }
+.is-in .clock circle:first-child{ stroke-dashoffset:0; }
+.clock .pin{ fill:var(--secondary); stroke:none; }
+.clock .hand-h,.clock .hand-m{ transform-origin:32px 32px; }
+.is-in .clock .hand-m{ animation:sweep 1.6s var(--ease) .3s both; }
+.is-in .clock .hand-h{ animation:sweep-h 1.6s var(--ease) .3s both; }
+@keyframes sweep{ from{ transform:rotate(-300deg); } to{ transform:none; } }
+@keyframes sweep-h{ from{ transform:rotate(-40deg); } to{ transform:none; } }
+.closing-with{ font:italic 400 14px/20px "Playfair Display",serif; color:var(--ink-soft); }
+.closing-families{ font:600 11.5px/19px "Plus Jakarta Sans",sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--secondary); margin:.35rem 0 1rem !important; }
 
 /* ── Closing ── */
-.closing{ text-align:center; display:flex; flex-direction:column; align-items:center; margin-bottom:2rem; padding-bottom:1.5rem; }
+.closing{ text-align:center; display:flex; flex-direction:column; align-items:center; margin-top:2.5rem; padding-bottom:1.5rem; }
 .arabesque{ display:flex; align-items:center; gap:.6rem; color:var(--foil); margin-bottom:.9rem; }
 .arabesque span{ width:3.5rem; height:1px; background:linear-gradient(90deg, transparent, var(--foil)); }
 .arabesque span:last-child{ transform:scaleX(-1); }
@@ -498,7 +354,6 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 .js [data-reveal="fade"]{ transform:none; }
 .js [data-reveal].is-in{ opacity:1; transform:none; }
 .js [data-stagger] > *{ opacity:0; transform:translateY(14px); transition:opacity .7s var(--ease), transform .7s var(--ease); transition-delay:calc(var(--i,0) * 110ms + .2s); }
-.js .swatches[data-stagger] > *{ transform:scale(.4); transition-timing-function:cubic-bezier(.3,1.5,.5,1); }
 .js [data-stagger].is-in > *{ opacity:1; transform:none; }
 
 @media (max-width:420px){
@@ -513,7 +368,6 @@ html.locked,html.locked body{ overflow:hidden; height:100%; overscroll-behavior:
 }
 
 @media (prefers-reduced-motion:reduce){
-  .js [data-reveal],.js [data-stagger] > *,.event-card > *,.verse,.portrait-foot,.map-label,.event-dot{ opacity:1 !important; transform:none !important; transition:none !important; }
+  .js [data-reveal],.js [data-stagger] > *,.event-card > *,.verse,.portrait-foot,.event-dot,.clock *{ opacity:1 !important; transform:none !important; transition:none !important; }
   .portrait img{ transform:none; transition:none; }
-  .player.playing .eq span,.player.playing .live-dot{ animation:none; }
 }
